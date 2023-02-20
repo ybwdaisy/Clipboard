@@ -1,2 +1,2 @@
-# iOS-Clipboard
+# Clipboard
 iOS Clipboard App
