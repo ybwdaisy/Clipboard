@@ -14,7 +14,47 @@
 		B518F84B29A36CFA006078E6 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = B518F84A29A36CFA006078E6 /* Persistence.swift */; };
 		B518F84E29A36CFA006078E6 /* Clipboard.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B518F84C29A36CFA006078E6 /* Clipboard.xcdatamodeld */; };
 		B518F85629A37876006078E6 /* Clipboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = B518F85529A37876006078E6 /* Clipboards.swift */; };
+		B518F88929A49952006078E6 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B518F88829A49952006078E6 /* ShareViewController.swift */; };
+		B518F88C29A49952006078E6 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B518F88A29A49952006078E6 /* MainInterface.storyboard */; };
+		B518F89029A49952006078E6 /* ShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B518F88629A49952006078E6 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B518F8B329A4A527006078E6 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = B518F84A29A36CFA006078E6 /* Persistence.swift */; };
+		B518F8B429A4A54E006078E6 /* Clipboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = B518F85529A37876006078E6 /* Clipboards.swift */; };
+		B518F8B529A4A556006078E6 /* Clipboard.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B518F84C29A36CFA006078E6 /* Clipboard.xcdatamodeld */; };
+		B518F8BD29A4B7CD006078E6 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B518F8BC29A4B7CD006078E6 /* KeyboardViewController.swift */; };
+		B518F8C129A4B7CD006078E6 /* KeyboardExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B518F8BA29A4B7CC006078E6 /* KeyboardExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B518F88E29A49952006078E6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B518F83629A36CF8006078E6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B518F88529A49952006078E6;
+			remoteInfo = ShareExtension;
+		};
+		B518F8BF29A4B7CD006078E6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B518F83629A36CF8006078E6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B518F8B929A4B7CC006078E6;
+			remoteInfo = KeyboardExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B518F89129A49952006078E6 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				B518F89029A49952006078E6 /* ShareExtension.appex in Embed Foundation Extensions */,
+				B518F8C129A4B7CD006078E6 /* KeyboardExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		B518F83E29A36CF8006078E6 /* Clipboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Clipboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -26,10 +66,32 @@
 		B518F84D29A36CFA006078E6 /* Clipboard.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Clipboard.xcdatamodel; sourceTree = "<group>"; };
 		B518F84F29A36CFA006078E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B518F85529A37876006078E6 /* Clipboards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clipboards.swift; sourceTree = "<group>"; };
+		B518F88629A49952006078E6 /* ShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		B518F88829A49952006078E6 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		B518F88B29A49952006078E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		B518F88D29A49952006078E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B518F8B229A4A190006078E6 /* Clipboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Clipboard.entitlements; sourceTree = "<group>"; };
+		B518F8BA29A4B7CC006078E6 /* KeyboardExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = KeyboardExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		B518F8BC29A4B7CD006078E6 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
+		B518F8BE29A4B7CD006078E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		B518F83B29A36CF8006078E6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B518F88329A49952006078E6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B518F8B729A4B7CC006078E6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -43,6 +105,8 @@
 			isa = PBXGroup;
 			children = (
 				B518F84029A36CF8006078E6 /* Clipboard */,
+				B518F88729A49952006078E6 /* ShareExtension */,
+				B518F8BB29A4B7CD006078E6 /* KeyboardExtension */,
 				B518F83F29A36CF8006078E6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -51,6 +115,8 @@
 			isa = PBXGroup;
 			children = (
 				B518F83E29A36CF8006078E6 /* Clipboard.app */,
+				B518F88629A49952006078E6 /* ShareExtension.appex */,
+				B518F8BA29A4B7CC006078E6 /* KeyboardExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -58,6 +124,7 @@
 		B518F84029A36CF8006078E6 /* Clipboard */ = {
 			isa = PBXGroup;
 			children = (
+				B518F8B229A4A190006078E6 /* Clipboard.entitlements */,
 				B518F84129A36CF8006078E6 /* ClipboardApp.swift */,
 				B518F84329A36CF8006078E6 /* ContentView.swift */,
 				B518F85529A37876006078E6 /* Clipboards.swift */,
@@ -78,6 +145,25 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		B518F88729A49952006078E6 /* ShareExtension */ = {
+			isa = PBXGroup;
+			children = (
+				B518F88829A49952006078E6 /* ShareViewController.swift */,
+				B518F88A29A49952006078E6 /* MainInterface.storyboard */,
+				B518F88D29A49952006078E6 /* Info.plist */,
+			);
+			path = ShareExtension;
+			sourceTree = "<group>";
+		};
+		B518F8BB29A4B7CD006078E6 /* KeyboardExtension */ = {
+			isa = PBXGroup;
+			children = (
+				B518F8BC29A4B7CD006078E6 /* KeyboardViewController.swift */,
+				B518F8BE29A4B7CD006078E6 /* Info.plist */,
+			);
+			path = KeyboardExtension;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -88,15 +174,52 @@
 				B518F83A29A36CF8006078E6 /* Sources */,
 				B518F83B29A36CF8006078E6 /* Frameworks */,
 				B518F83C29A36CF8006078E6 /* Resources */,
+				B518F89129A49952006078E6 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				B518F88F29A49952006078E6 /* PBXTargetDependency */,
+				B518F8C029A4B7CD006078E6 /* PBXTargetDependency */,
 			);
 			name = Clipboard;
 			productName = Clipboard;
 			productReference = B518F83E29A36CF8006078E6 /* Clipboard.app */;
 			productType = "com.apple.product-type.application";
+		};
+		B518F88529A49952006078E6 /* ShareExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B518F89429A49952006078E6 /* Build configuration list for PBXNativeTarget "ShareExtension" */;
+			buildPhases = (
+				B518F88229A49952006078E6 /* Sources */,
+				B518F88329A49952006078E6 /* Frameworks */,
+				B518F88429A49952006078E6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ShareExtension;
+			productName = ShareExtension;
+			productReference = B518F88629A49952006078E6 /* ShareExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		B518F8B929A4B7CC006078E6 /* KeyboardExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B518F8C229A4B7CD006078E6 /* Build configuration list for PBXNativeTarget "KeyboardExtension" */;
+			buildPhases = (
+				B518F8B629A4B7CC006078E6 /* Sources */,
+				B518F8B729A4B7CC006078E6 /* Frameworks */,
+				B518F8B829A4B7CC006078E6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KeyboardExtension;
+			productName = KeyboardExtension;
+			productReference = B518F8BA29A4B7CC006078E6 /* KeyboardExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -109,6 +232,12 @@
 				LastUpgradeCheck = 1420;
 				TargetAttributes = {
 					B518F83D29A36CF8006078E6 = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					B518F88529A49952006078E6 = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					B518F8B929A4B7CC006078E6 = {
 						CreatedOnToolsVersion = 14.2;
 					};
 				};
@@ -127,6 +256,8 @@
 			projectRoot = "";
 			targets = (
 				B518F83D29A36CF8006078E6 /* Clipboard */,
+				B518F88529A49952006078E6 /* ShareExtension */,
+				B518F8B929A4B7CC006078E6 /* KeyboardExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -138,6 +269,21 @@
 			files = (
 				B518F84929A36CFA006078E6 /* Preview Assets.xcassets in Resources */,
 				B518F84629A36CFA006078E6 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B518F88429A49952006078E6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B518F88C29A49952006078E6 /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B518F8B829A4B7CC006078E6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,7 +302,50 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B518F88229A49952006078E6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B518F88929A49952006078E6 /* ShareViewController.swift in Sources */,
+				B518F8B329A4A527006078E6 /* Persistence.swift in Sources */,
+				B518F8B529A4A556006078E6 /* Clipboard.xcdatamodeld in Sources */,
+				B518F8B429A4A54E006078E6 /* Clipboards.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B518F8B629A4B7CC006078E6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B518F8BD29A4B7CD006078E6 /* KeyboardViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B518F88F29A49952006078E6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B518F88529A49952006078E6 /* ShareExtension */;
+			targetProxy = B518F88E29A49952006078E6 /* PBXContainerItemProxy */;
+		};
+		B518F8C029A4B7CD006078E6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B518F8B929A4B7CC006078E6 /* KeyboardExtension */;
+			targetProxy = B518F8BF29A4B7CD006078E6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		B518F88A29A49952006078E6 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B518F88B29A49952006078E6 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		B518F85029A36CFA006078E6 /* Debug */ = {
@@ -276,8 +465,10 @@
 		B518F85329A36CFA006078E6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Clipboard/Clipboard.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Clipboard/Preview Content\"";
@@ -305,8 +496,10 @@
 		B518F85429A36CFA006078E6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Clipboard/Clipboard.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Clipboard/Preview Content\"";
@@ -331,6 +524,106 @@
 			};
 			name = Release;
 		};
+		B518F89229A49952006078E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3NQPG2DCKD;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ShareExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ShareExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ybwdaisy.Clipboard.ShareExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B518F89329A49952006078E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3NQPG2DCKD;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ShareExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ShareExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ybwdaisy.Clipboard.ShareExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		B518F8C329A4B7CD006078E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3NQPG2DCKD;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = KeyboardExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = KeyboardExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ybwdaisy.Clipboard.KeyboardExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B518F8C429A4B7CD006078E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3NQPG2DCKD;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = KeyboardExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = KeyboardExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ybwdaisy.Clipboard.KeyboardExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -348,6 +641,24 @@
 			buildConfigurations = (
 				B518F85329A36CFA006078E6 /* Debug */,
 				B518F85429A36CFA006078E6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B518F89429A49952006078E6 /* Build configuration list for PBXNativeTarget "ShareExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B518F89229A49952006078E6 /* Debug */,
+				B518F89329A49952006078E6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B518F8C229A4B7CD006078E6 /* Build configuration list for PBXNativeTarget "KeyboardExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B518F8C329A4B7CD006078E6 /* Debug */,
+				B518F8C429A4B7CD006078E6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
