@@ -17,6 +17,9 @@
 		B518F88929A49952006078E6 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B518F88829A49952006078E6 /* ShareViewController.swift */; };
 		B518F88C29A49952006078E6 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B518F88A29A49952006078E6 /* MainInterface.storyboard */; };
 		B518F89029A49952006078E6 /* ShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B518F88629A49952006078E6 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B518F8B329A4A527006078E6 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = B518F84A29A36CFA006078E6 /* Persistence.swift */; };
+		B518F8B429A4A54E006078E6 /* Clipboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = B518F85529A37876006078E6 /* Clipboards.swift */; };
+		B518F8B529A4A556006078E6 /* Clipboard.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B518F84C29A36CFA006078E6 /* Clipboard.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +60,7 @@
 		B518F88829A49952006078E6 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		B518F88B29A49952006078E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		B518F88D29A49952006078E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B518F8B229A4A190006078E6 /* Clipboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Clipboard.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +102,7 @@
 		B518F84029A36CF8006078E6 /* Clipboard */ = {
 			isa = PBXGroup;
 			children = (
+				B518F8B229A4A190006078E6 /* Clipboard.entitlements */,
 				B518F84129A36CF8006078E6 /* ClipboardApp.swift */,
 				B518F84329A36CF8006078E6 /* ContentView.swift */,
 				B518F85529A37876006078E6 /* Clipboards.swift */,
@@ -242,6 +247,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B518F88929A49952006078E6 /* ShareViewController.swift in Sources */,
+				B518F8B329A4A527006078E6 /* Persistence.swift in Sources */,
+				B518F8B529A4A556006078E6 /* Clipboard.xcdatamodeld in Sources */,
+				B518F8B429A4A54E006078E6 /* Clipboards.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,6 +395,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Clipboard/Clipboard.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Clipboard/Preview Content\"";
@@ -417,6 +426,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Clipboard/Clipboard.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Clipboard/Preview Content\"";

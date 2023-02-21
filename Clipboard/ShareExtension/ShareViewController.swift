@@ -9,7 +9,6 @@ import UIKit
 import Social
 
 class ShareViewController: SLComposeServiceViewController {
-
     override func isContentValid() -> Bool {
         // Do validation of contentText and/or NSExtensionContext attachments here
         return true
@@ -19,6 +18,28 @@ class ShareViewController: SLComposeServiceViewController {
         // This is called after the user selects Post. Do the upload of contentText and/or NSExtensionContext attachments.
     
         // Inform the host that we're done, so it un-blocks its UI. Note: Alternatively you could call super's -didSelectPost, which will similarly complete the extension context.
+        
+        guard let inputItems = self.extensionContext?.inputItems.map({ $0 as? NSExtensionItem }) else {
+            self.extensionContext?.cancelRequest(withError: NSError())
+            return
+        }
+        
+        for inputItem in inputItems {
+            guard let contentText = inputItem?.attributedContentText else { return }
+            
+            let viewContext = PersistenceController.shared.container.viewContext
+            let newItem = Clipboards(context: viewContext)
+            newItem.text = contentText.string
+
+            do {
+                try viewContext.save()
+            } catch {
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+            
+            
+        }
         self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
     }
 
