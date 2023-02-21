@@ -9,6 +9,8 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
+    @Environment(\.scenePhase) private var scenePhase
+    
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(
@@ -18,42 +20,86 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            List {
-                ForEach(items, id: \.objectID) { item in
-                    NavigationLink {
-                        Text(item.text)
-                    } label: {
-                        Text(item.text)
+            List(items, id: \.objectID) { item in
+                Text(item.text)
+                    .swipeActions(edge: .leading) {
+                        Button {
+                            copyItems(text: item.text)
+                        } label: {
+                            Label("Copy", systemImage: "doc.on.doc")
+                        }
+                        .tint(.blue)
+                        Button {
+                            topItems(item: item)
+                        } label: {
+                            Label("Top", systemImage: "pin")
+                        }
+                        .tint(.green)
                     }
-                }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
+                    .swipeActions(edge: .trailing) {
+                        Button {
+                            deleteItems(item: item)
+                        } label: {
+                            Label("Delete", systemImage: "trash")
+                        }
+                        .tint(.red)
+                    }
+                    .contextMenu {
+                        Button {
+                            copyItems(text: item.text)
+                        } label: {
+                            Label("Copy", systemImage: "doc.on.doc")
+                        }
+                        Button {
+                            topItems(item: item)
+                        } label: {
+                            Label("Top", systemImage: "pin")
+                        }
+                        Button(role: .destructive) {
+                            deleteItems(item: item)
+                        } label: {
+                            Label("Delete", systemImage: "trash")
+                        }
+                    }
             }
             .navigationTitle("Clipboard History")
-            .onAppear {
-                let clipboard = UIPasteboard.general.string
-                if (clipboard != nil) {
-                    addItem(str: clipboard ?? "")
-                    UIPasteboard.general.string = nil
+            .onChange(of: scenePhase, perform: { newPhase in
+                if newPhase == .active {
+                    print("active")
+                    let clipboardString = UIPasteboard.general.string
+                    if (clipboardString != nil) {
+                        addItem(text: clipboardString ?? "")
+                        UIPasteboard.general.string = nil
+                    }
+                } else if newPhase == .inactive {
+                    print("inactive")
+                } else if newPhase == .background {
+                    print("background")
                 }
-            }
+            })
         }
     }
 
-    private func addItem(str: String) {
+    private func addItem(text: String) {
         withAnimation {
             let newItem = Clipboards(context: viewContext)
-            newItem.text = str
+            newItem.text = text
 
             do {
                 try viewContext.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
+    }
+    
+    private func deleteItems(item: Clipboards) {
+        withAnimation {
+            viewContext.delete(item)
+            do {
+                try viewContext.save()
+            } catch {
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
@@ -67,12 +113,24 @@ struct ContentView: View {
             do {
                 try viewContext.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
         }
+    }
+    
+    private func copyItems(text: String) {
+        withAnimation {
+            UIPasteboard.general.string = text
+        }
+    }
+    
+    private func topItems(item: Clipboards) {
+        
+    }
+    
+    private func selectItems() {
+        
     }
 }
 
