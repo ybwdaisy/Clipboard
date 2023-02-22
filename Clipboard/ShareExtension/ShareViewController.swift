@@ -7,11 +7,22 @@
 
 import UIKit
 import Social
+import SwiftUI
+import CoreData
 
 class ShareViewController: SLComposeServiceViewController {
     override func isContentValid() -> Bool {
         // Do validation of contentText and/or NSExtensionContext attachments here
         return true
+    }
+    
+    override func viewDidLoad() {
+        let viewContext = PersistenceController.shared.container.viewContext
+        let fetchRequest: NSFetchRequest = Clipboards.fetchRequest()
+        guard let clipboards = try? viewContext.fetch(fetchRequest) as! [Clipboards] else { return }
+        clipboards.forEach { item in
+            print("clipboard extension", item.text)
+        }
     }
 
     override func didSelectPost() {
@@ -26,19 +37,13 @@ class ShareViewController: SLComposeServiceViewController {
         
         for inputItem in inputItems {
             guard let contentText = inputItem?.attributedContentText else { return }
+            print(contentText.string)
             
             let viewContext = PersistenceController.shared.container.viewContext
             let newItem = Clipboards(context: viewContext)
             newItem.text = contentText.string
-
-            do {
-                try viewContext.save()
-            } catch {
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
             
-            
+            try? viewContext.save()
         }
         self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
     }

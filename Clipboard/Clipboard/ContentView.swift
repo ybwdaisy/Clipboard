@@ -77,6 +77,13 @@ struct ContentView: View {
                     print("background")
                 }
             })
+            .onAppear {
+                let fetchRequest: NSFetchRequest = Clipboards.fetchRequest()
+                guard let clipboards = try? viewContext.fetch(fetchRequest) as! [Clipboards] else { return }
+                clipboards.forEach { item in
+                    print("clipboard app", item.text)
+                }
+            }
         }
     }
 
