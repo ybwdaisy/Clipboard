@@ -65,25 +65,21 @@ struct ContentView: View {
             .navigationTitle("Clipboard History")
             .onChange(of: scenePhase, perform: { newPhase in
                 if newPhase == .active {
-                    print("active")
+                    // from clipboard
                     let clipboardString = UIPasteboard.general.string
                     if (clipboardString != nil) {
-                        addItem(text: clipboardString ?? "")
+                        addItem(text: clipboardString!)
                         UIPasteboard.general.string = nil
                     }
-                } else if newPhase == .inactive {
-                    print("inactive")
-                } else if newPhase == .background {
-                    print("background")
+                    // from share extension
+                    let userDefaults = UserDefaults.init(suiteName: "group.ybwdaisy.clipboard")
+                    let shareContent = userDefaults?.object(forKey: "share_extension_content")
+                    if (shareContent != nil) {
+                        addItem(text: shareContent as! String)
+                        userDefaults?.set(nil, forKey: "share_extension_content")
+                    }
                 }
             })
-            .onAppear {
-                let fetchRequest: NSFetchRequest = Clipboards.fetchRequest()
-                guard let clipboards = try? viewContext.fetch(fetchRequest) as! [Clipboards] else { return }
-                clipboards.forEach { item in
-                    print("clipboard app", item.text)
-                }
-            }
         }
     }
 

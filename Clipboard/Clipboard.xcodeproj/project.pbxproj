@@ -17,9 +17,6 @@
 		B518F88929A49952006078E6 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B518F88829A49952006078E6 /* ShareViewController.swift */; };
 		B518F88C29A49952006078E6 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B518F88A29A49952006078E6 /* MainInterface.storyboard */; };
 		B518F89029A49952006078E6 /* ShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B518F88629A49952006078E6 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		B518F8B329A4A527006078E6 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = B518F84A29A36CFA006078E6 /* Persistence.swift */; };
-		B518F8B429A4A54E006078E6 /* Clipboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = B518F85529A37876006078E6 /* Clipboards.swift */; };
-		B518F8B529A4A556006078E6 /* Clipboard.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B518F84C29A36CFA006078E6 /* Clipboard.xcdatamodeld */; };
 		B518F8BD29A4B7CD006078E6 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B518F8BC29A4B7CD006078E6 /* KeyboardViewController.swift */; };
 		B518F8C129A4B7CD006078E6 /* KeyboardExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B518F8BA29A4B7CC006078E6 /* KeyboardExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -309,9 +306,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B518F88929A49952006078E6 /* ShareViewController.swift in Sources */,
-				B518F8B329A4A527006078E6 /* Persistence.swift in Sources */,
-				B518F8B529A4A556006078E6 /* Clipboard.xcdatamodeld in Sources */,
-				B518F8B429A4A54E006078E6 /* Clipboards.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
