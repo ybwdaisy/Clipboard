@@ -17,9 +17,6 @@
 		B518F88929A49952006078E6 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B518F88829A49952006078E6 /* ShareViewController.swift */; };
 		B518F88C29A49952006078E6 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B518F88A29A49952006078E6 /* MainInterface.storyboard */; };
 		B518F89029A49952006078E6 /* ShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B518F88629A49952006078E6 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		B518F8B329A4A527006078E6 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = B518F84A29A36CFA006078E6 /* Persistence.swift */; };
-		B518F8B429A4A54E006078E6 /* Clipboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = B518F85529A37876006078E6 /* Clipboards.swift */; };
-		B518F8B529A4A556006078E6 /* Clipboard.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B518F84C29A36CFA006078E6 /* Clipboard.xcdatamodeld */; };
 		B518F8BD29A4B7CD006078E6 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B518F8BC29A4B7CD006078E6 /* KeyboardViewController.swift */; };
 		B518F8C129A4B7CD006078E6 /* KeyboardExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B518F8BA29A4B7CC006078E6 /* KeyboardExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -57,6 +54,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B507CE4029A5CA0000B8AFDD /* ShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtension.entitlements; sourceTree = "<group>"; };
 		B518F83E29A36CF8006078E6 /* Clipboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Clipboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B518F84129A36CF8006078E6 /* ClipboardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardApp.swift; sourceTree = "<group>"; };
 		B518F84329A36CF8006078E6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -124,7 +122,6 @@
 		B518F84029A36CF8006078E6 /* Clipboard */ = {
 			isa = PBXGroup;
 			children = (
-				B518F8B229A4A190006078E6 /* Clipboard.entitlements */,
 				B518F84129A36CF8006078E6 /* ClipboardApp.swift */,
 				B518F84329A36CF8006078E6 /* ContentView.swift */,
 				B518F85529A37876006078E6 /* Clipboards.swift */,
@@ -132,6 +129,7 @@
 				B518F84529A36CFA006078E6 /* Assets.xcassets */,
 				B518F84F29A36CFA006078E6 /* Info.plist */,
 				B518F84C29A36CFA006078E6 /* Clipboard.xcdatamodeld */,
+				B518F8B229A4A190006078E6 /* Clipboard.entitlements */,
 				B518F84729A36CFA006078E6 /* Preview Content */,
 			);
 			path = Clipboard;
@@ -149,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				B518F88829A49952006078E6 /* ShareViewController.swift */,
+				B507CE4029A5CA0000B8AFDD /* ShareExtension.entitlements */,
 				B518F88A29A49952006078E6 /* MainInterface.storyboard */,
 				B518F88D29A49952006078E6 /* Info.plist */,
 			);
@@ -307,9 +306,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B518F88929A49952006078E6 /* ShareViewController.swift in Sources */,
-				B518F8B329A4A527006078E6 /* Persistence.swift in Sources */,
-				B518F8B529A4A556006078E6 /* Clipboard.xcdatamodeld in Sources */,
-				B518F8B429A4A54E006078E6 /* Clipboards.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,6 +523,7 @@
 		B518F89229A49952006078E6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3NQPG2DCKD;
@@ -552,6 +549,7 @@
 		B518F89329A49952006078E6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3NQPG2DCKD;

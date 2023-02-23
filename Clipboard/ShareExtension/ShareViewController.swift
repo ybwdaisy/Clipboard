@@ -27,18 +27,8 @@ class ShareViewController: SLComposeServiceViewController {
         for inputItem in inputItems {
             guard let contentText = inputItem?.attributedContentText else { return }
             
-            let viewContext = PersistenceController.shared.container.viewContext
-            let newItem = Clipboards(context: viewContext)
-            newItem.text = contentText.string
-
-            do {
-                try viewContext.save()
-            } catch {
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-            
-            
+            let userDefaults = UserDefaults.init(suiteName: "group.ybwdaisy.clipboard")
+            userDefaults?.set(contentText.string, forKey: "share_extension_content")
         }
         self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
     }
