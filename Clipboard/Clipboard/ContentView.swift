@@ -9,6 +9,10 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
+    @State private var selection = Set<NSManagedObjectID>()
+    @State private var sharePresented: Bool = false
+    @State private var activityItems: [Any] = []
+    
     @Environment(\.scenePhase) private var scenePhase
     
     @Environment(\.managedObjectContext) private var viewContext
@@ -20,19 +24,19 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            List(items, id: \.objectID) { item in
+            List(items, id: \.objectID, selection: $selection) { item in
                 Text(item.text)
                     .swipeActions(edge: .leading) {
                         Button {
                             copyItems(text: item.text)
                         } label: {
-                            Label("Copy", systemImage: "doc.on.doc")
+                            Image(systemName: "doc.on.doc")
                         }
                         .tint(.blue)
                         Button {
                             topItems(item: item)
                         } label: {
-                            Label("Top", systemImage: "pin")
+                            Image(systemName: "pin")
                         }
                         .tint(.green)
                     }
@@ -40,7 +44,7 @@ struct ContentView: View {
                         Button {
                             deleteItems(item: item)
                         } label: {
-                            Label("Delete", systemImage: "trash")
+                            Image(systemName: "trash")
                         }
                         .tint(.red)
                     }
@@ -55,12 +59,20 @@ struct ContentView: View {
                         } label: {
                             Label("Top", systemImage: "pin")
                         }
+                        Button {
+                            shareItems(item: item)
+                        } label: {
+                            Label("Share", systemImage: "square.and.arrow.up")
+                        }
                         Button(role: .destructive) {
                             deleteItems(item: item)
                         } label: {
                             Label("Delete", systemImage: "trash")
                         }
                     }
+            }
+            .toolbar {
+                EditButton()
             }
             .navigationTitle("Clipboard History")
             .onChange(of: scenePhase, perform: { newPhase in
@@ -80,6 +92,51 @@ struct ContentView: View {
                     }
                 }
             })
+            .sheet(isPresented: $sharePresented, onDismiss: nil) {
+                ActivityViewController(activityItems: $activityItems)
+            }
+        }
+        Group {
+            if !selection.isEmpty {
+                HStack {
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "doc.on.doc")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 20.0)
+                    }
+                    Spacer()
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "pin")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 17.0)
+                    }
+                    Spacer()
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "square.and.arrow.up")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 18.0)
+                    }
+                    Spacer()
+                    Button(role: .destructive) {
+                        
+                    } label: {
+                        Image(systemName: "trash")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 20.0)
+                    }
+                }
+                .padding(EdgeInsets(top: 0, leading: 20.0, bottom: 0, trailing: 20.0))
+            }
         }
     }
 
@@ -108,19 +165,6 @@ struct ContentView: View {
             }
         }
     }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-
-            do {
-                try viewContext.save()
-            } catch {
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
     
     private func copyItems(text: String) {
         withAnimation {
@@ -132,8 +176,9 @@ struct ContentView: View {
         
     }
     
-    private func selectItems() {
-        
+    private func shareItems(item: Clipboards) {
+        sharePresented = true
+        activityItems = [item.text]
     }
 }
 
