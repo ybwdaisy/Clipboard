@@ -33,6 +33,8 @@ class KeyboardViewController: UIInputViewController {
         
         self.nextKeyboardButton.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         self.nextKeyboardButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        
+        self.addKeyboardButtons()
     }
     
     override func viewWillLayoutSubviews() {
@@ -55,6 +57,51 @@ class KeyboardViewController: UIInputViewController {
             textColor = UIColor.black
         }
         self.nextKeyboardButton.setTitleColor(textColor, for: [])
+    }
+    
+    func addKeyboardButtons() {
+        let RowStackView = UIStackView.init()
+        RowStackView.spacing = 5
+        RowStackView.axis = .horizontal
+        RowStackView.alignment = .fill
+        RowStackView.distribution = .fillEqually
+        
+        let buttonA = UIButton(type: .system)
+        buttonA.setTitle("A", for: .normal)
+        buttonA.sizeToFit()
+        buttonA.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        buttonA.translatesAutoresizingMaskIntoConstraints = false
+        buttonA.addTarget(self, action: #selector(didTapButton(sender:)), for: .touchUpInside)
+        
+        let buttonB = UIButton(type: .system)
+        buttonB.setTitle("A", for: .normal)
+        buttonB.sizeToFit()
+        buttonB.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        buttonB.translatesAutoresizingMaskIntoConstraints = false
+        buttonB.addTarget(self, action: #selector(didTapButton(sender:)), for: .touchUpInside)
+        
+        RowStackView.addArrangedSubview(buttonA)
+        RowStackView.addArrangedSubview(buttonB)
+
+        self.view.addSubview(RowStackView)
+    }
+    
+    @objc func didTapButton(sender: UIButton) {
+        
+        let button = sender as UIButton
+        guard let title = button.titleLabel?.text else { return }
+        let proxy = self.textDocumentProxy
+        
+        UIView.animate(withDuration: 0.25, animations: {
+            button.transform = CGAffineTransform(scaleX: 1.20, y: 1.20)
+            UIDevice.current.playInputClick()
+            proxy.insertText(title)
+        }) { (_) in
+            UIView.animate(withDuration: 0.10, animations: {
+                button.transform = CGAffineTransform.identity
+            })
+        }
+        
     }
 
 }
