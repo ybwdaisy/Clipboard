@@ -18,6 +18,8 @@
 		B518F88929A49952006078E6 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B518F88829A49952006078E6 /* ShareViewController.swift */; };
 		B518F88C29A49952006078E6 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B518F88A29A49952006078E6 /* MainInterface.storyboard */; };
 		B518F89029A49952006078E6 /* ShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B518F88629A49952006078E6 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B5905DC929A76041009A17A5 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5905DC829A76041009A17A5 /* KeyboardViewController.swift */; };
+		B5905DCD29A76041009A17A5 /* ClipboardKeyboard.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B5905DC629A76041009A17A5 /* ClipboardKeyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,6 +30,13 @@
 			remoteGlobalIDString = B518F88529A49952006078E6;
 			remoteInfo = ShareExtension;
 		};
+		B5905DCB29A76041009A17A5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B518F83629A36CF8006078E6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B5905DC529A76041009A17A5;
+			remoteInfo = ClipboardKeyboard;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -37,6 +46,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				B5905DCD29A76041009A17A5 /* ClipboardKeyboard.appex in Embed Foundation Extensions */,
 				B518F89029A49952006078E6 /* ShareExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
@@ -61,6 +71,10 @@
 		B518F88B29A49952006078E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		B518F88D29A49952006078E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B518F8B229A4A190006078E6 /* Clipboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Clipboard.entitlements; sourceTree = "<group>"; };
+		B5905DC629A76041009A17A5 /* ClipboardKeyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ClipboardKeyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5905DC829A76041009A17A5 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
+		B5905DCA29A76041009A17A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B5905DD129A760E5009A17A5 /* ClipboardKeyboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClipboardKeyboard.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +92,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B5905DC329A76041009A17A5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -86,6 +107,7 @@
 			children = (
 				B518F84029A36CF8006078E6 /* Clipboard */,
 				B518F88729A49952006078E6 /* ShareExtension */,
+				B5905DC729A76041009A17A5 /* ClipboardKeyboard */,
 				B518F83F29A36CF8006078E6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -95,6 +117,7 @@
 			children = (
 				B518F83E29A36CF8006078E6 /* Clipboard.app */,
 				B518F88629A49952006078E6 /* ShareExtension.appex */,
+				B5905DC629A76041009A17A5 /* ClipboardKeyboard.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -135,6 +158,16 @@
 			path = ShareExtension;
 			sourceTree = "<group>";
 		};
+		B5905DC729A76041009A17A5 /* ClipboardKeyboard */ = {
+			isa = PBXGroup;
+			children = (
+				B5905DD129A760E5009A17A5 /* ClipboardKeyboard.entitlements */,
+				B5905DC829A76041009A17A5 /* KeyboardViewController.swift */,
+				B5905DCA29A76041009A17A5 /* Info.plist */,
+			);
+			path = ClipboardKeyboard;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -151,6 +184,7 @@
 			);
 			dependencies = (
 				B518F88F29A49952006078E6 /* PBXTargetDependency */,
+				B5905DCC29A76041009A17A5 /* PBXTargetDependency */,
 			);
 			name = Clipboard;
 			productName = Clipboard;
@@ -174,6 +208,23 @@
 			productReference = B518F88629A49952006078E6 /* ShareExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		B5905DC529A76041009A17A5 /* ClipboardKeyboard */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B5905DD029A76041009A17A5 /* Build configuration list for PBXNativeTarget "ClipboardKeyboard" */;
+			buildPhases = (
+				B5905DC229A76041009A17A5 /* Sources */,
+				B5905DC329A76041009A17A5 /* Frameworks */,
+				B5905DC429A76041009A17A5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ClipboardKeyboard;
+			productName = ClipboardKeyboard;
+			productReference = B5905DC629A76041009A17A5 /* ClipboardKeyboard.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -188,6 +239,9 @@
 						CreatedOnToolsVersion = 14.2;
 					};
 					B518F88529A49952006078E6 = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					B5905DC529A76041009A17A5 = {
 						CreatedOnToolsVersion = 14.2;
 					};
 				};
@@ -207,6 +261,7 @@
 			targets = (
 				B518F83D29A36CF8006078E6 /* Clipboard */,
 				B518F88529A49952006078E6 /* ShareExtension */,
+				B5905DC529A76041009A17A5 /* ClipboardKeyboard */,
 			);
 		};
 /* End PBXProject section */
@@ -226,6 +281,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				B518F88C29A49952006078E6 /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B5905DC429A76041009A17A5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,6 +315,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B5905DC229A76041009A17A5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B5905DC929A76041009A17A5 /* KeyboardViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -260,6 +330,11 @@
 			isa = PBXTargetDependency;
 			target = B518F88529A49952006078E6 /* ShareExtension */;
 			targetProxy = B518F88E29A49952006078E6 /* PBXContainerItemProxy */;
+		};
+		B5905DCC29A76041009A17A5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B5905DC529A76041009A17A5 /* ClipboardKeyboard */;
+			targetProxy = B5905DCB29A76041009A17A5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -503,6 +578,58 @@
 			};
 			name = Release;
 		};
+		B5905DCE29A76041009A17A5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ClipboardKeyboard/ClipboardKeyboard.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3NQPG2DCKD;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ClipboardKeyboard/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ClipboardKeyboard;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ybwdaisy.Clipboard.ClipboardKeyboard;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B5905DCF29A76041009A17A5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ClipboardKeyboard/ClipboardKeyboard.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3NQPG2DCKD;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ClipboardKeyboard/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ClipboardKeyboard;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ybwdaisy.Clipboard.ClipboardKeyboard;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -529,6 +656,15 @@
 			buildConfigurations = (
 				B518F89229A49952006078E6 /* Debug */,
 				B518F89329A49952006078E6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B5905DD029A76041009A17A5 /* Build configuration list for PBXNativeTarget "ClipboardKeyboard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B5905DCE29A76041009A17A5 /* Debug */,
+				B5905DCF29A76041009A17A5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
