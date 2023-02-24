@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class KeyboardViewController: UIInputViewController {
 
@@ -26,6 +27,7 @@ class KeyboardViewController: UIInputViewController {
         self.nextKeyboardButton.setTitle(NSLocalizedString("Next Keyboard", comment: "Title for 'Next Keyboard' button"), for: [])
         self.nextKeyboardButton.sizeToFit()
         self.nextKeyboardButton.translatesAutoresizingMaskIntoConstraints = false
+        self.nextKeyboardButton.isHidden = false
         
         self.nextKeyboardButton.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .allTouchEvents)
         
@@ -34,7 +36,52 @@ class KeyboardViewController: UIInputViewController {
         self.nextKeyboardButton.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         self.nextKeyboardButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         
-        self.addKeyboardButtons()
+        let scrollView = self.addKeyboardButtons()
+        
+        let mainStackView = UIStackView(arrangedSubviews: [scrollView])
+        mainStackView.axis = .vertical
+        mainStackView.spacing = 10.0
+        mainStackView.distribution = .fillEqually
+        mainStackView.alignment = .fill
+        mainStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.view.addSubview(mainStackView)
+        
+        self.view.addConstraints([
+            NSLayoutConstraint(item: mainStackView,
+                attribute: .centerX,
+                relatedBy: .equal,
+                toItem: self.view,
+                attribute: .centerX,
+                multiplier: 1.0,
+                constant: 0.0),
+            NSLayoutConstraint(item: mainStackView,
+                attribute: .width,
+                relatedBy: .equal,
+                toItem: self.view,
+                attribute: .width,
+                multiplier: 1.0,
+                constant: 0.0),
+            NSLayoutConstraint(item: mainStackView,
+                attribute: .top,
+                relatedBy: .equal,
+                toItem: self.view,
+                attribute: .top,
+                multiplier: 1.0,
+                constant: 0.0),
+            NSLayoutConstraint(item: mainStackView,
+                attribute: .bottom,
+                relatedBy: .equal,
+                toItem: self.view,
+                attribute: .bottom,
+                multiplier: 1.0,
+                constant: 0.0)])
+        
+        mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 2).isActive = true
+        mainStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 2).isActive = true
+        mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -2).isActive = true
+        mainStackView.heightAnchor.constraint(equalToConstant: 225).isActive = true
+        
     }
     
     override func viewWillLayoutSubviews() {
@@ -59,48 +106,156 @@ class KeyboardViewController: UIInputViewController {
         self.nextKeyboardButton.setTitleColor(textColor, for: [])
     }
     
-    func addKeyboardButtons() {
-        let RowStackView = UIStackView.init()
-        RowStackView.spacing = 5
-        RowStackView.axis = .horizontal
-        RowStackView.alignment = .fill
-        RowStackView.distribution = .fillEqually
+    func addKeyboardButtons() -> UIScrollView {
+//        let scrollView = UIScrollView()
+//        scrollView.alwaysBounceHorizontal = true
+//        scrollView.bounces = true
+//        scrollView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.width)
+//
+//        for (index, item) in ["A", "B", "C", "D", "E"].enumerated() {
+//            let button = UIButton(type: .system)
+//            button.setTitle(item, for: .normal)
+//            button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+//            button.backgroundColor = .white
+//            button.translatesAutoresizingMaskIntoConstraints = false
+//            button.addTarget(self, action: #selector(didTapButton(sender:)), for: .touchUpInside)
+//
+//            button.widthAnchor.constraint(equalToConstant: 80.0).isActive = true
+//            button.heightAnchor.constraint(equalToConstant: 80.0).isActive = true
+//
+//            let wrapperView = UIView()
+//            wrapperView.frame = CGRectMake(100.0 * CGFloat(index), 0, 100.0, 100.0)
+//            wrapperView.addSubview(button)
+//
+//            wrapperView.widthAnchor.constraint(equalToConstant: 100.0).isActive = true
+//            wrapperView.heightAnchor.constraint(equalToConstant: 100.0).isActive = true
+//            scrollView.addSubview(wrapperView)
+//        }
+        let scrollView = UIScrollView()
+        let numberOfSubViews = 5
         
-        let buttonA = UIButton(type: .system)
-        buttonA.setTitle("A", for: .normal)
-        buttonA.sizeToFit()
-        buttonA.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        buttonA.translatesAutoresizingMaskIntoConstraints = false
-        buttonA.addTarget(self, action: #selector(didTapButton(sender:)), for: .touchUpInside)
+        scrollView.bounces = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
         
-        let buttonB = UIButton(type: .system)
-        buttonB.setTitle("A", for: .normal)
-        buttonB.sizeToFit()
-        buttonB.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        buttonB.translatesAutoresizingMaskIntoConstraints = false
-        buttonB.addTarget(self, action: #selector(didTapButton(sender:)), for: .touchUpInside)
-        
-        RowStackView.addArrangedSubview(buttonA)
-        RowStackView.addArrangedSubview(buttonB)
+        let contentView = UIView()
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(contentView)
 
-        self.view.addSubview(RowStackView)
+        scrollView.addConstraints([
+            NSLayoutConstraint(item: contentView,
+                attribute: .centerX,
+                relatedBy: .equal,
+                toItem: scrollView,
+                attribute: .centerX,
+                multiplier: 1.0,
+                constant: 0.0),
+            NSLayoutConstraint(item: contentView,
+                attribute: .width,
+                relatedBy: .equal,
+                toItem: scrollView,
+                attribute: .width,
+                multiplier: 1.0,
+                constant: 0.0),
+            NSLayoutConstraint(item: contentView,
+                attribute: .top,
+                relatedBy: .equal,
+                toItem: scrollView,
+                attribute: .top,
+                multiplier: 1.0,
+                constant: 0.0),
+            NSLayoutConstraint(item: contentView,
+                attribute: .bottom,
+                relatedBy: .equal,
+                toItem: scrollView,
+                attribute: .bottom,
+                multiplier: 1.0,
+                constant: 0.0)])
+
+        var previousViewElement:UIView!
+
+        let colorsArray = [UIColor.red, UIColor.green, UIColor.blue,
+                           UIColor.cyan, UIColor.magenta, UIColor.yellow]
+
+        for item in 1...numberOfSubViews {
+            let view = UIView()
+            view.backgroundColor = colorsArray[Int(arc4random_uniform(UInt32(colorsArray.count)))] as UIColor
+            view.translatesAutoresizingMaskIntoConstraints = false
+            
+//            let button = UIButton(type: .system)
+//            button.setTitle("\(item)", for: .normal)
+//            button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+//            button.backgroundColor = .white
+//            button.translatesAutoresizingMaskIntoConstraints = false
+//            button.addTarget(self, action: #selector(didTapButton(sender:)), for: .touchUpInside)
+//            view.addSubview(button)
+            
+            contentView.addSubview(view)
+            
+            contentView.addConstraints([
+                NSLayoutConstraint(item: view,
+                    attribute: .centerX,
+                    relatedBy: .equal,
+                    toItem: contentView,
+                    attribute: .centerX,
+                    multiplier: 1.0,
+                    constant: 0.0),
+                NSLayoutConstraint(item: view,
+                    attribute: .width,
+                    relatedBy: .equal,
+                    toItem: contentView,
+                    attribute: .width,
+                    multiplier: 6/7,
+                    constant: 0.0),
+                NSLayoutConstraint(item: view,
+                    attribute: .height,
+                    relatedBy: .equal,
+                    toItem: nil,
+                    attribute: .notAnAttribute,
+                    multiplier: 0.0,
+                    constant: 50.0 * CGFloat(1 + arc4random_uniform(7)))])
+            
+            if previousViewElement == nil {
+                contentView.addConstraint(
+                    NSLayoutConstraint(item: view,
+                        attribute: .top,
+                        relatedBy: .equal,
+                        toItem: contentView,
+                        attribute: .top,
+                        multiplier: 1.0,
+                        constant: 20.0))
+            } else {
+                contentView.addConstraint(
+                    NSLayoutConstraint(item: view,
+                        attribute: .top,
+                        relatedBy: .equal,
+                        toItem: previousViewElement,
+                        attribute: .bottom,
+                        multiplier: 1.0,
+                        constant: 20.0))
+            }
+            
+            previousViewElement = view
+        }
+
+        // At this point previousViewElement refers to the last subview, that is the one at the bottom.
+        contentView.addConstraint(
+            NSLayoutConstraint(item: previousViewElement,
+                attribute: .bottom,
+                relatedBy: .equal,
+                toItem: contentView,
+                attribute: .bottom,
+                multiplier: 1.0,
+                constant: -20.0))
+
+        return scrollView
     }
     
     @objc func didTapButton(sender: UIButton) {
         
         let button = sender as UIButton
         guard let title = button.titleLabel?.text else { return }
-        let proxy = self.textDocumentProxy
-        
-        UIView.animate(withDuration: 0.25, animations: {
-            button.transform = CGAffineTransform(scaleX: 1.20, y: 1.20)
-            UIDevice.current.playInputClick()
-            proxy.insertText(title)
-        }) { (_) in
-            UIView.animate(withDuration: 0.10, animations: {
-                button.transform = CGAffineTransform.identity
-            })
-        }
+        self.textDocumentProxy.insertText(title)
+        UIDevice.current.playInputClick()
         
     }
 
