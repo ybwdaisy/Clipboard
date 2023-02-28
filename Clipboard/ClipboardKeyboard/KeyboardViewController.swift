@@ -20,9 +20,7 @@ class KeyboardViewController: UIInputViewController {
         
         // Perform custom UI setup here
         
-        let scrollView = self.addKeyboardButtons()
-        
-        let mainStackView = UIStackView(arrangedSubviews: [scrollView])
+        let mainStackView = UIStackView(arrangedSubviews: [self.addKeyboardButtons()])
         mainStackView.axis = .vertical
         mainStackView.spacing = 10.0
         mainStackView.distribution = .fillEqually
@@ -52,7 +50,6 @@ class KeyboardViewController: UIInputViewController {
     
     func addKeyboardButtons() -> UIScrollView {
         let scrollView = UIScrollView()
-        let numberOfSubViews = 5
         
         scrollView.bounces = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -89,72 +86,86 @@ class KeyboardViewController: UIInputViewController {
                 toItem: scrollView,
                 attribute: .bottom,
                 multiplier: 1.0,
-                constant: 0.0)])
+                constant: 0.0)
+        ])
 
-        var previousViewElement:UIView!
+        var previousViewElement: UIView!
+        
+        let clipboard = [
+            "numberOfSubViews",
+            "view.backgroundColor = colorsArray[Int(arc4random_uniform(UInt32(colorsArray.count)))] as UIColor",
+            "button.backgroundColor = .white",
+            "let button = UIButton(type: .system)",
+            "At this point previousViewElement refers to the last subview, that is the one at the bottom.",
+            "button.contentEdgeInsets = UIEdgeInsets(top: 5.0, left: 10.0, bottom: 5.0, right: 10.0)"
+        ]
 
-        let colorsArray = [UIColor.red, UIColor.green, UIColor.blue,
-                           UIColor.cyan, UIColor.magenta, UIColor.yellow]
+        for (index, item) in clipboard.enumerated() {
 
-        for item in 1...numberOfSubViews {
-            let view = UIView()
-            view.backgroundColor = colorsArray[Int(arc4random_uniform(UInt32(colorsArray.count)))] as UIColor
-            view.translatesAutoresizingMaskIntoConstraints = false
-            
             let button = UIButton(type: .system)
-            button.setTitle("\(item)", for: .normal)
-            button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-            button.titleLabel?.lineBreakMode = .byWordWrapping
+            button.backgroundColor = .white
+            button.layer.cornerRadius = 10
+            button.contentHorizontalAlignment = .left
+            button.contentVerticalAlignment = .top
+            button.contentEdgeInsets = UIEdgeInsets(top: 5.0, left: 10.0, bottom: 5.0, right: 10.0)
             button.translatesAutoresizingMaskIntoConstraints = false
+
+            button.setTitle(item, for: .normal)
+            button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+            button.titleLabel?.textColor = UIColor.black
+            button.titleLabel?.numberOfLines = 0
+            button.titleLabel?.lineBreakMode = .byCharWrapping
+            button.sizeToFit()
+            button.layoutIfNeeded()
             button.addTarget(self, action: #selector(didTapButton(sender:)), for: .touchUpInside)
-            view.addSubview(button)
-            
-            contentView.addSubview(view)
+        
+            contentView.addSubview(button)
             
             contentView.addConstraints([
-                NSLayoutConstraint(item: view,
+                NSLayoutConstraint(item: button,
                     attribute: .centerX,
                     relatedBy: .equal,
                     toItem: contentView,
                     attribute: .centerX,
                     multiplier: 1.0,
                     constant: 0.0),
-                NSLayoutConstraint(item: view,
+                NSLayoutConstraint(item: button,
                     attribute: .width,
                     relatedBy: .equal,
                     toItem: contentView,
                     attribute: .width,
-                    multiplier: 6/7,
+                    multiplier: 0.9,
                     constant: 0.0),
-                NSLayoutConstraint(item: view,
+                NSLayoutConstraint(item: button,
                     attribute: .height,
                     relatedBy: .equal,
                     toItem: nil,
                     attribute: .notAnAttribute,
-                    multiplier: 0.0,
-                    constant: 50.0 * CGFloat(1 + arc4random_uniform(7)))])
-            
+                    multiplier: 1.0,
+                    constant: 100.0)
+            ])
+
             if previousViewElement == nil {
                 contentView.addConstraint(
-                    NSLayoutConstraint(item: view,
+                    NSLayoutConstraint(item: button,
                         attribute: .top,
                         relatedBy: .equal,
                         toItem: contentView,
                         attribute: .top,
                         multiplier: 1.0,
-                        constant: 20.0))
+                        constant: 10.0))
             } else {
                 contentView.addConstraint(
-                    NSLayoutConstraint(item: view,
+                    NSLayoutConstraint(item: button,
                         attribute: .top,
                         relatedBy: .equal,
                         toItem: previousViewElement,
                         attribute: .bottom,
                         multiplier: 1.0,
-                        constant: 20.0))
+                        constant: 10.0))
             }
-            
-            previousViewElement = view
+
+            previousViewElement = button
         }
 
         // At this point previousViewElement refers to the last subview, that is the one at the bottom.
@@ -165,7 +176,7 @@ class KeyboardViewController: UIInputViewController {
                 toItem: contentView,
                 attribute: .bottom,
                 multiplier: 1.0,
-                constant: -20.0))
+                constant: -10.0))
 
         return scrollView
     }
