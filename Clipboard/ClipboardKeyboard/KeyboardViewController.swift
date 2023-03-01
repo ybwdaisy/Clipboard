@@ -19,21 +19,7 @@ class KeyboardViewController: UIInputViewController {
         super.viewDidLoad()
         
         // Perform custom UI setup here
-        
-        let mainStackView = UIStackView(arrangedSubviews: [self.addKeyboardButtons()])
-        mainStackView.axis = .vertical
-        mainStackView.spacing = 10.0
-        mainStackView.distribution = .fillEqually
-        mainStackView.alignment = .fill
-        mainStackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        self.view.addSubview(mainStackView)
-        
-        mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 2).isActive = true
-        mainStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 2).isActive = true
-        mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -2).isActive = true
-        mainStackView.heightAnchor.constraint(equalToConstant: 225).isActive = true
-        
+        self.keyboardView();
     }
     
     override func viewWillLayoutSubviews() {
@@ -48,146 +34,130 @@ class KeyboardViewController: UIInputViewController {
         // The app has just changed the document's contents, the document context has been updated.
     }
     
-    func addKeyboardButtons() -> UIScrollView {
+    func keyboardView() {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 10.0
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(stackView)
+        
+        stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
+        stackView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+        stackView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
+        stackView.heightAnchor.constraint(equalToConstant: 225).isActive = true
+        
         let scrollView = UIScrollView()
-        
-        scrollView.bounces = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.backgroundColor = .clear
         
-        let contentView = UIView()
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.addSubview(contentView)
-
-        scrollView.addConstraints([
-            NSLayoutConstraint(item: contentView,
-                attribute: .centerX,
-                relatedBy: .equal,
-                toItem: scrollView,
-                attribute: .centerX,
-                multiplier: 1.0,
-                constant: 0.0),
-            NSLayoutConstraint(item: contentView,
-                attribute: .width,
-                relatedBy: .equal,
-                toItem: scrollView,
-                attribute: .width,
-                multiplier: 1.0,
-                constant: 0.0),
-            NSLayoutConstraint(item: contentView,
-                attribute: .top,
-                relatedBy: .equal,
-                toItem: scrollView,
-                attribute: .top,
-                multiplier: 1.0,
-                constant: 0.0),
-            NSLayoutConstraint(item: contentView,
-                attribute: .bottom,
-                relatedBy: .equal,
-                toItem: scrollView,
-                attribute: .bottom,
-                multiplier: 1.0,
-                constant: 0.0)
-        ])
-
-        var previousViewElement: UIView!
+        stackView.addArrangedSubview(scrollView)
+        
+        scrollView.topAnchor.constraint(equalTo: stackView.topAnchor, constant: 0).isActive = true
+        scrollView.rightAnchor.constraint(equalTo: stackView.rightAnchor, constant: 0).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: -50).isActive = true
+        scrollView.leftAnchor.constraint(equalTo: stackView.leftAnchor, constant: 0).isActive = true
+        
+        let accessoryView = UIStackView()
+        accessoryView.axis = .horizontal
+        accessoryView.spacing = 5.0
+        accessoryView.backgroundColor = .clear
+        
+        stackView.addArrangedSubview(accessoryView)
+        
+        accessoryView.leftAnchor.constraint(equalTo: stackView.leftAnchor, constant: 10).isActive = true
+        accessoryView.rightAnchor.constraint(equalTo: stackView.rightAnchor, constant: -10).isActive = true
+        
+        let spaceButton = UIButton()
+        spaceButton.setTitle("space", for: .normal)
+        spaceButton.setTitleColor(.black, for: .normal)
+        spaceButton.backgroundColor = .white
+        spaceButton.layer.cornerRadius = 5.0
+        spaceButton.addTarget(self, action: #selector(insertSpace), for: .touchUpInside)
+        accessoryView.addArrangedSubview(spaceButton)
+        
+        let deleteButton = UIButton()
+        deleteButton.setImage(UIImage(systemName: "delete.left"), for: .normal)
+        deleteButton.tintColor = .black
+        deleteButton.backgroundColor = .white
+        deleteButton.layer.cornerRadius = 5.0
+        deleteButton.addTarget(self, action: #selector(deleteText), for: .touchUpInside)
+        accessoryView.addArrangedSubview(deleteButton)
+        
+        deleteButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
         
         let clipboard = [
-            "numberOfSubViews",
-            "view.backgroundColor = colorsArray[Int(arc4random_uniform(UInt32(colorsArray.count)))] as UIColor",
-            "button.backgroundColor = .white",
-            "let button = UIButton(type: .system)",
-            "At this point previousViewElement refers to the last subview, that is the one at the bottom.",
-            "button.contentEdgeInsets = UIEdgeInsets(top: 5.0, left: 10.0, bottom: 5.0, right: 10.0)"
+            "view.addSubview(scrollView)",
+            "scrollView.translatesAutoresizingMaskIntoConstraints = false",
+            "The app has just changed the document's contents, the document context has been updated. The app has just changed the document's contents, the document context has been updated.",
+            "Perform custom UI setup here",
+            "Add custom view sizing constraints here"
         ]
-
-        for (index, item) in clipboard.enumerated() {
-
-            let button = UIButton(type: .system)
-            button.backgroundColor = .white
-            button.layer.cornerRadius = 10
-            button.contentHorizontalAlignment = .left
-            button.contentVerticalAlignment = .top
-            button.contentEdgeInsets = UIEdgeInsets(top: 5.0, left: 10.0, bottom: 5.0, right: 10.0)
-            button.translatesAutoresizingMaskIntoConstraints = false
-
-            button.setTitle(item, for: .normal)
-            button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-            button.titleLabel?.textColor = UIColor.black
-            button.titleLabel?.numberOfLines = 0
-            button.titleLabel?.lineBreakMode = .byCharWrapping
-            button.sizeToFit()
-            button.layoutIfNeeded()
-            button.addTarget(self, action: #selector(didTapButton(sender:)), for: .touchUpInside)
         
-            contentView.addSubview(button)
+        var topView: UIView? = nil
+        for (index, item) in clipboard.enumerated() {
+            let contentView = UIView()
+            contentView.translatesAutoresizingMaskIntoConstraints = false
+            contentView.backgroundColor = .white
+            contentView.layer.cornerRadius = 10
+            contentView.layoutIfNeeded()
             
-            contentView.addConstraints([
-                NSLayoutConstraint(item: button,
-                    attribute: .centerX,
-                    relatedBy: .equal,
-                    toItem: contentView,
-                    attribute: .centerX,
-                    multiplier: 1.0,
-                    constant: 0.0),
-                NSLayoutConstraint(item: button,
-                    attribute: .width,
-                    relatedBy: .equal,
-                    toItem: contentView,
-                    attribute: .width,
-                    multiplier: 0.9,
-                    constant: 0.0),
-                NSLayoutConstraint(item: button,
-                    attribute: .height,
-                    relatedBy: .equal,
-                    toItem: nil,
-                    attribute: .notAnAttribute,
-                    multiplier: 1.0,
-                    constant: 100.0)
-            ])
+            let contentViewTap = ViewTapGesture(target: self, action: #selector(self.didTapView(sender:)))
+            contentViewTap.text = item
+            contentView.addGestureRecognizer(contentViewTap)
+            
+            scrollView.addSubview(contentView)
 
-            if previousViewElement == nil {
-                contentView.addConstraint(
-                    NSLayoutConstraint(item: button,
-                        attribute: .top,
-                        relatedBy: .equal,
-                        toItem: contentView,
-                        attribute: .top,
-                        multiplier: 1.0,
-                        constant: 10.0))
+            if let top = topView {
+                contentView.topAnchor.constraint(equalTo: top.bottomAnchor, constant: 10).isActive = true
             } else {
-                contentView.addConstraint(
-                    NSLayoutConstraint(item: button,
-                        attribute: .top,
-                        relatedBy: .equal,
-                        toItem: previousViewElement,
-                        attribute: .bottom,
-                        multiplier: 1.0,
-                        constant: 10.0))
+                contentView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 10).isActive = true
             }
+            contentView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
+            contentView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
+            
+            topView = contentView
 
-            previousViewElement = button
+            let label = UILabel()
+            label.numberOfLines = 0
+            label.lineBreakMode = .byCharWrapping
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.text = item
+            label.textColor = .black
+            
+            contentView.addSubview(label)
+            
+            label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
+            label.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10).isActive = true
+            label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
+            label.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10).isActive = true
         }
-
-        // At this point previousViewElement refers to the last subview, that is the one at the bottom.
-        contentView.addConstraint(
-            NSLayoutConstraint(item: previousViewElement,
-                attribute: .bottom,
-                relatedBy: .equal,
-                toItem: contentView,
-                attribute: .bottom,
-                multiplier: 1.0,
-                constant: -10.0))
-
-        return scrollView
+        
+        if let top = topView {
+            top.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -10).isActive = true
+        }
     }
     
-    @objc func didTapButton(sender: UIButton) {
-        
-        let button = sender as UIButton
-        guard let title = button.titleLabel?.text else { return }
-        self.textDocumentProxy.insertText(title)
+    @objc func didTapView(sender: ViewTapGesture) {
+        self.textDocumentProxy.insertText(sender.text)
         UIDevice.current.playInputClick()
-        
     }
+    
+    @objc func deleteText() {
+        self.textDocumentProxy.adjustTextPosition(byCharacterOffset: 1)
+        self.textDocumentProxy.deleteBackward()
+        UIDevice.current.playInputClick()
+    }
+    
+    @objc func insertSpace() {
+        self.textDocumentProxy.insertText(" ")
+        UIDevice.current.playInputClick()
+    }
+}
 
+class ViewTapGesture: UITapGestureRecognizer {
+    var text = String()
 }
