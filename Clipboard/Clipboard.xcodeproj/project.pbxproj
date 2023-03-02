@@ -20,6 +20,12 @@
 		B518F89029A49952006078E6 /* ShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B518F88629A49952006078E6 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B5905DC929A76041009A17A5 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5905DC829A76041009A17A5 /* KeyboardViewController.swift */; };
 		B5905DCD29A76041009A17A5 /* ClipboardKeyboard.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B5905DC629A76041009A17A5 /* ClipboardKeyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B5A5857C29B03FDA00E37E34 /* Clipboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = B518F85529A37876006078E6 /* Clipboards.swift */; };
+		B5A5857D29B03FDD00E37E34 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = B518F84A29A36CFA006078E6 /* Persistence.swift */; };
+		B5A5857E29B03FE100E37E34 /* Clipboard.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B518F84C29A36CFA006078E6 /* Clipboard.xcdatamodeld */; };
+		B5A5858429B0469600E37E34 /* Clipboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = B518F85529A37876006078E6 /* Clipboards.swift */; };
+		B5A5858529B0469900E37E34 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = B518F84A29A36CFA006078E6 /* Persistence.swift */; };
+		B5A5858629B0469F00E37E34 /* Clipboard.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B518F84C29A36CFA006078E6 /* Clipboard.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -311,7 +317,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5A5858529B0469900E37E34 /* Persistence.swift in Sources */,
+				B5A5858629B0469F00E37E34 /* Clipboard.xcdatamodeld in Sources */,
 				B518F88929A49952006078E6 /* ShareViewController.swift in Sources */,
+				B5A5858429B0469600E37E34 /* Clipboards.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,6 +328,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5A5857D29B03FDD00E37E34 /* Persistence.swift in Sources */,
+				B5A5857C29B03FDA00E37E34 /* Clipboards.swift in Sources */,
+				B5A5857E29B03FE100E37E34 /* Clipboard.xcdatamodeld in Sources */,
 				B5905DC929A76041009A17A5 /* KeyboardViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

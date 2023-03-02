@@ -7,8 +7,10 @@
 
 import UIKit
 import SwiftUI
+import CoreData
 
 class KeyboardViewController: UIInputViewController {
+    
     override func updateViewConstraints() {
         super.updateViewConstraints()
         
@@ -18,8 +20,12 @@ class KeyboardViewController: UIInputViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let controller = PersistenceController(inMemory: true)
+        let fetchRequest: NSFetchRequest = Clipboards.fetchRequest()
+        guard let clipboards = try? controller.container.viewContext.fetch(fetchRequest) as? [Clipboards] else { return }
+        
         // Perform custom UI setup here
-        self.keyboardView();
+        self.keyboardView(clipboards: clipboards);
     }
     
     override func viewWillLayoutSubviews() {
@@ -34,7 +40,7 @@ class KeyboardViewController: UIInputViewController {
         // The app has just changed the document's contents, the document context has been updated.
     }
     
-    func keyboardView() {
+    func keyboardView(clipboards: [Clipboards]) {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 10.0
@@ -89,16 +95,8 @@ class KeyboardViewController: UIInputViewController {
         
         deleteButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
         
-        let clipboard = [
-            "view.addSubview(scrollView)",
-            "scrollView.translatesAutoresizingMaskIntoConstraints = false",
-            "The app has just changed the document's contents, the document context has been updated. The app has just changed the document's contents, the document context has been updated.",
-            "Perform custom UI setup here",
-            "Add custom view sizing constraints here"
-        ]
-        
         var topView: UIView? = nil
-        for (index, item) in clipboard.enumerated() {
+        for (index, item) in clipboards.enumerated() {
             let contentView = UIView()
             contentView.translatesAutoresizingMaskIntoConstraints = false
             contentView.backgroundColor = .white
@@ -106,7 +104,7 @@ class KeyboardViewController: UIInputViewController {
             contentView.layoutIfNeeded()
             
             let contentViewTap = ViewTapGesture(target: self, action: #selector(self.didTapView(sender:)))
-            contentViewTap.text = item
+            contentViewTap.text = item.text
             contentView.addGestureRecognizer(contentViewTap)
             
             scrollView.addSubview(contentView)
@@ -125,7 +123,7 @@ class KeyboardViewController: UIInputViewController {
             label.numberOfLines = 0
             label.lineBreakMode = .byCharWrapping
             label.translatesAutoresizingMaskIntoConstraints = false
-            label.text = item
+            label.text = item.text
             label.textColor = .black
             
             contentView.addSubview(label)
