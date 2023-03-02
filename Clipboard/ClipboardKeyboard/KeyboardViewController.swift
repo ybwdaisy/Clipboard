@@ -102,7 +102,19 @@ class KeyboardViewController: UIInputViewController {
 
         accessoryView.addArrangedSubview(deleteButton)
         
-        deleteButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        deleteButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        let doneButton = UIButton()
+        doneButton.setTitle("Done", for: .normal)
+        doneButton.setTitleColor(.white, for: .normal)
+        doneButton.backgroundColor = .systemBlue
+        doneButton.layer.cornerRadius = 5.0
+        
+        doneButton.addTarget(self, action: #selector(onReturn), for: .touchUpInside)
+        
+        accessoryView.addArrangedSubview(doneButton)
+        
+        doneButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
         
         var topView: UIView? = nil
         for (index, item) in clipboards.enumerated() {
@@ -158,15 +170,21 @@ class KeyboardViewController: UIInputViewController {
         UISelectionFeedbackGenerator().selectionChanged()
     }
     
+    @objc func onLongPressDeleteKey(longGesture: UILongPressGestureRecognizer) {
+        self.textDocumentProxy.deleteBackward()
+        UISelectionFeedbackGenerator().selectionChanged()
+    }
+    
     @objc func onInsertSpace() {
         self.textDocumentProxy.insertText(" ")
         UISelectionFeedbackGenerator().selectionChanged()
     }
     
-    @objc func onLongPressDeleteKey(longGesture: UILongPressGestureRecognizer) {
-        self.textDocumentProxy.deleteBackward()
+    @objc func onReturn() {
+        self.textDocumentProxy.insertText("\n")
         UISelectionFeedbackGenerator().selectionChanged()
     }
+    
 }
 
 class ViewTapGesture: UITapGestureRecognizer {
