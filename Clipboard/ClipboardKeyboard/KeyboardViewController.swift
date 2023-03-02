@@ -150,22 +150,22 @@ class KeyboardViewController: UIInputViewController {
     
     @objc func onInsertClipboardText(sender: ViewTapGesture) {
         self.textDocumentProxy.insertText(sender.text)
-        UIDevice.current.playInputClick()
+        UISelectionFeedbackGenerator().selectionChanged()
     }
     
     @objc func onDeleteText() {
         self.textDocumentProxy.deleteBackward()
-        UIDevice.current.playInputClick()
+        UISelectionFeedbackGenerator().selectionChanged()
     }
     
     @objc func onInsertSpace() {
         self.textDocumentProxy.insertText(" ")
-        UIDevice.current.playInputClick()
+        UISelectionFeedbackGenerator().selectionChanged()
     }
     
     @objc func onLongPressDeleteKey(longGesture: UILongPressGestureRecognizer) {
         self.textDocumentProxy.deleteBackward()
-        UIDevice.current.playInputClick()
+        UISelectionFeedbackGenerator().selectionChanged()
     }
 }
 
