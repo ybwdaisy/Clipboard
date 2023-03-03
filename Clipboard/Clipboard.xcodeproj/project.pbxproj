@@ -547,7 +547,7 @@
 				DEVELOPMENT_TEAM = 3NQPG2DCKD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ShareExtension;
+				INFOPLIST_KEY_CFBundleDisplayName = Clipboard;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -573,7 +573,7 @@
 				DEVELOPMENT_TEAM = 3NQPG2DCKD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ShareExtension;
+				INFOPLIST_KEY_CFBundleDisplayName = Clipboard;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -599,7 +599,7 @@
 				DEVELOPMENT_TEAM = 3NQPG2DCKD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ClipboardKeyboard/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ClipboardKeyboard;
+				INFOPLIST_KEY_CFBundleDisplayName = Clipboard;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -625,7 +625,7 @@
 				DEVELOPMENT_TEAM = 3NQPG2DCKD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ClipboardKeyboard/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ClipboardKeyboard;
+				INFOPLIST_KEY_CFBundleDisplayName = Clipboard;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -82,7 +82,7 @@ class KeyboardViewController: UIInputViewController {
         spaceButton.setTitleColor(.black, for: .normal)
         spaceButton.backgroundColor = .white
         spaceButton.layer.cornerRadius = 5.0
-        spaceButton.addTarget(self, action: #selector(insertSpace), for: .touchUpInside)
+        spaceButton.addTarget(self, action: #selector(onInsertSpace), for: .touchUpInside)
         accessoryView.addArrangedSubview(spaceButton)
         
         let deleteButton = UIButton()
@@ -90,10 +90,31 @@ class KeyboardViewController: UIInputViewController {
         deleteButton.tintColor = .black
         deleteButton.backgroundColor = .white
         deleteButton.layer.cornerRadius = 5.0
-        deleteButton.addTarget(self, action: #selector(deleteText), for: .touchUpInside)
+        
+        deleteButton.addTarget(self, action: #selector(onDeleteText), for: .touchUpInside)
+        
+        // TODO: batch delete is not smooth
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(onLongPressDeleteKey))
+        longPressRecognizer.minimumPressDuration = 0.5
+        longPressRecognizer.numberOfTouchesRequired = 1
+        longPressRecognizer.allowableMovement = 0.1
+        deleteButton.addGestureRecognizer(longPressRecognizer)
+
         accessoryView.addArrangedSubview(deleteButton)
         
-        deleteButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        deleteButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        let doneButton = UIButton()
+        doneButton.setTitle("Done", for: .normal)
+        doneButton.setTitleColor(.white, for: .normal)
+        doneButton.backgroundColor = .systemBlue
+        doneButton.layer.cornerRadius = 5.0
+        
+        doneButton.addTarget(self, action: #selector(onReturn), for: .touchUpInside)
+        
+        accessoryView.addArrangedSubview(doneButton)
+        
+        doneButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
         
         var topView: UIView? = nil
         for (index, item) in clipboards.enumerated() {
@@ -103,7 +124,7 @@ class KeyboardViewController: UIInputViewController {
             contentView.layer.cornerRadius = 10
             contentView.layoutIfNeeded()
             
-            let contentViewTap = ViewTapGesture(target: self, action: #selector(self.didTapView(sender:)))
+            let contentViewTap = ViewTapGesture(target: self, action: #selector(self.onInsertClipboardText(sender:)))
             contentViewTap.text = item.text
             contentView.addGestureRecognizer(contentViewTap)
             
@@ -139,21 +160,31 @@ class KeyboardViewController: UIInputViewController {
         }
     }
     
-    @objc func didTapView(sender: ViewTapGesture) {
+    @objc func onInsertClipboardText(sender: ViewTapGesture) {
         self.textDocumentProxy.insertText(sender.text)
-        UIDevice.current.playInputClick()
+        UISelectionFeedbackGenerator().selectionChanged()
     }
     
-    @objc func deleteText() {
-        self.textDocumentProxy.adjustTextPosition(byCharacterOffset: 1)
+    @objc func onDeleteText() {
         self.textDocumentProxy.deleteBackward()
-        UIDevice.current.playInputClick()
+        UISelectionFeedbackGenerator().selectionChanged()
     }
     
-    @objc func insertSpace() {
-        self.textDocumentProxy.insertText(" ")
-        UIDevice.current.playInputClick()
+    @objc func onLongPressDeleteKey(longGesture: UILongPressGestureRecognizer) {
+        self.textDocumentProxy.deleteBackward()
+        UISelectionFeedbackGenerator().selectionChanged()
     }
+    
+    @objc func onInsertSpace() {
+        self.textDocumentProxy.insertText(" ")
+        UISelectionFeedbackGenerator().selectionChanged()
+    }
+    
+    @objc func onReturn() {
+        self.textDocumentProxy.insertText("\n")
+        UISelectionFeedbackGenerator().selectionChanged()
+    }
+    
 }
 
 class ViewTapGesture: UITapGestureRecognizer {
