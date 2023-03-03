@@ -83,13 +83,6 @@ struct ContentView: View {
                         addItem(text: clipboardString!)
                         UIPasteboard.general.string = nil
                     }
-                    // from share extension
-                    let userDefaults = UserDefaults.init(suiteName: "group.ybwdaisy.clipboard")
-                    let shareContent = userDefaults?.object(forKey: "share_extension_content")
-                    if (shareContent != nil) {
-                        addItem(text: shareContent as! String)
-                        userDefaults?.set(nil, forKey: "share_extension_content")
-                    }
                 }
             })
             .sheet(isPresented: $sharePresented, onDismiss: nil) {
@@ -184,6 +177,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+        ContentView().environment(\.managedObjectContext, PersistenceController(inMemory: true).container.viewContext)
     }
 }
