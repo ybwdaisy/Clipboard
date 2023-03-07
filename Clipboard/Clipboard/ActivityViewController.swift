@@ -9,7 +9,7 @@ import UIKit
 import SwiftUI
 
 struct ActivityViewController: UIViewControllerRepresentable {
-    @Binding var activityItems: [Any]
+    @Binding var activityItems: [String]
     
     var applicationActivities: [UIActivity]? = nil
     

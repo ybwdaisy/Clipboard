@@ -10,8 +10,10 @@ import CoreData
 
 struct ContentView: View {
     @State private var selection = Set<NSManagedObjectID>()
+    @State private var editMode = EditMode.inactive
     @State private var sharePresented: Bool = false
-    @State private var activityItems: [Any] = []
+    @State private var activityItems: [String] = []
+    @State private var searchText: String = ""
     
     @Environment(\.scenePhase) private var scenePhase
     
@@ -26,7 +28,7 @@ struct ContentView: View {
         NavigationView {
             List(items, id: \.objectID, selection: $selection) { item in
                 Text(item.text)
-                    .listRowBackground(item.top ? Color.blue : Color.white)
+                    .listRowBackground(item.top ? Color.gray.opacity(0.3) : nil)
                     .swipeActions(edge: .leading) {
                         Button {
                             copyItems(items: [item])
@@ -75,6 +77,7 @@ struct ContentView: View {
             .toolbar {
                 EditButton()
             }
+            .environment(\.editMode, $editMode)
             .navigationTitle("Clipboard History")
             .onChange(of: scenePhase, perform: { newPhase in
                 if newPhase == .active {
@@ -89,9 +92,10 @@ struct ContentView: View {
             .sheet(isPresented: $sharePresented, onDismiss: nil) {
                 ActivityViewController(activityItems: $activityItems)
             }
+            .searchable(text: $searchText, prompt: "Search Clipboard")
         }
         Group {
-            if !selection.isEmpty {
+            if selection.count > 0 {
                 HStack {
                     Button {
                         copyItems(items: selection)
