@@ -11,4 +11,5 @@ import CoreData
 final class Clipboards: NSManagedObject {
     @NSManaged override var objectID: NSManagedObjectID
     @NSManaged var text: String
+    @NSManaged var top: Bool
 }
