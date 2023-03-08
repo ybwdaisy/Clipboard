@@ -20,7 +20,10 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Clipboards.objectID, ascending: true)],
+        sortDescriptors: [
+            NSSortDescriptor(keyPath: \Clipboards.top, ascending: false),
+            NSSortDescriptor(keyPath: \Clipboards.updateTime, ascending: false)
+        ],
         animation: .default)
     private var items: FetchedResults<Clipboards>
     
@@ -155,7 +158,9 @@ struct ContentView: View {
     
     private func viewContextSave() {
         do {
-            try viewContext.save()
+            if viewContext.hasChanges {
+                try viewContext.save()
+            }
         } catch {
             let nsError = error as NSError
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
@@ -166,6 +171,7 @@ struct ContentView: View {
         withAnimation {
             let newItem = Clipboards(context: viewContext)
             newItem.text = text
+            newItem.updateTime = Date()
             viewContext.insert(newItem)
             viewContextSave()
         }
@@ -215,6 +221,7 @@ struct ContentView: View {
         withAnimation {
             items.forEach { item in
                 item.top = !item.top
+                item.updateTime = Date()
             }
             viewContextSave()
         }
@@ -224,6 +231,7 @@ struct ContentView: View {
         items.forEach { objectID in
             let item: Clipboards = viewContext.object(with: objectID) as! Clipboards
             item.top = true
+            item.updateTime = Date()
         }
         viewContextSave()
     }
