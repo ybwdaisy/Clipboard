@@ -10,8 +10,10 @@ import CoreData
 
 struct ContentView: View {
     @State private var selection = Set<NSManagedObjectID>()
+    @State private var editMode = EditMode.inactive
     @State private var sharePresented: Bool = false
-    @State private var activityItems: [Any] = []
+    @State private var activityItems: [String] = []
+    @State private var searchText: String = ""
     
     @Environment(\.scenePhase) private var scenePhase
     
@@ -26,23 +28,24 @@ struct ContentView: View {
         NavigationView {
             List(items, id: \.objectID, selection: $selection) { item in
                 Text(item.text)
+                    .listRowBackground(item.top ? Color.gray.opacity(0.3) : nil)
                     .swipeActions(edge: .leading) {
                         Button {
-                            copyItems(text: item.text)
+                            copyItems(items: [item])
                         } label: {
                             Image(systemName: "doc.on.doc")
                         }
                         .tint(.blue)
                         Button {
-                            topItems(item: item)
+                            topItems(items: [item])
                         } label: {
-                            Image(systemName: "pin")
+                            Image(systemName: item.top ? "pin.slash" : "pin")
                         }
                         .tint(.green)
                     }
                     .swipeActions(edge: .trailing) {
                         Button {
-                            deleteItems(item: item)
+                            deleteItems(items: [item])
                         } label: {
                             Image(systemName: "trash")
                         }
@@ -50,22 +53,22 @@ struct ContentView: View {
                     }
                     .contextMenu {
                         Button {
-                            copyItems(text: item.text)
+                            copyItems(items: [item])
                         } label: {
                             Label("Copy", systemImage: "doc.on.doc")
                         }
                         Button {
-                            topItems(item: item)
+                            topItems(items: [item])
                         } label: {
-                            Label("Top", systemImage: "pin")
+                            Label(item.top ? "UnTop": "Top", systemImage: item.top ? "pin.slash" : "pin")
                         }
                         Button {
-                            shareItems(item: item)
+                            shareItems(items: [item])
                         } label: {
                             Label("Share", systemImage: "square.and.arrow.up")
                         }
                         Button(role: .destructive) {
-                            deleteItems(item: item)
+                            deleteItems(items: [item])
                         } label: {
                             Label("Delete", systemImage: "trash")
                         }
@@ -74,6 +77,7 @@ struct ContentView: View {
             .toolbar {
                 EditButton()
             }
+            .environment(\.editMode, $editMode)
             .navigationTitle("Clipboard History")
             .onChange(of: scenePhase, perform: { newPhase in
                 if newPhase == .active {
@@ -88,12 +92,13 @@ struct ContentView: View {
             .sheet(isPresented: $sharePresented, onDismiss: nil) {
                 ActivityViewController(activityItems: $activityItems)
             }
+            .searchable(text: $searchText, prompt: "Search Clipboard")
         }
         Group {
-            if !selection.isEmpty {
+            if selection.count > 0 {
                 HStack {
                     Button {
-                        
+                        copyItems(items: selection)
                     } label: {
                         Image(systemName: "doc.on.doc")
                             .resizable()
@@ -102,7 +107,7 @@ struct ContentView: View {
                     }
                     Spacer()
                     Button {
-                        
+                        topItems(items: selection)
                     } label: {
                         Image(systemName: "pin")
                             .resizable()
@@ -111,7 +116,7 @@ struct ContentView: View {
                     }
                     Spacer()
                     Button {
-                        
+                        shareItems(items: selection)
                     } label: {
                         Image(systemName: "square.and.arrow.up")
                             .resizable()
@@ -120,7 +125,7 @@ struct ContentView: View {
                     }
                     Spacer()
                     Button(role: .destructive) {
-                        
+                        deleteItems(items: selection)
                     } label: {
                         Image(systemName: "trash")
                             .resizable()
@@ -132,46 +137,99 @@ struct ContentView: View {
             }
         }
     }
+    
+    private func viewContextSave() {
+        do {
+            try viewContext.save()
+        } catch {
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+    }
 
     private func addItem(text: String) {
         withAnimation {
             let newItem = Clipboards(context: viewContext)
             newItem.text = text
-
-            do {
-                try viewContext.save()
-            } catch {
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
+            viewContext.insert(newItem)
+            viewContextSave()
         }
     }
     
-    private func deleteItems(item: Clipboards) {
+    private func deleteItems(items: [Clipboards]) {
         withAnimation {
-            viewContext.delete(item)
-            do {
-                try viewContext.save()
-            } catch {
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            items.forEach { item in
+                viewContext.delete(item)
             }
+            viewContextSave()
         }
     }
     
-    private func copyItems(text: String) {
+    private func deleteItems(items: Set<NSManagedObjectID>) {
         withAnimation {
-            UIPasteboard.general.string = text
+            items.forEach { objectID in
+                let item = viewContext.object(with: objectID)
+                viewContext.delete(item)
+            }
+            viewContextSave()
         }
     }
     
-    private func topItems(item: Clipboards) {
-        
+    private func copyItems(items: [Clipboards]) {
+        withAnimation {
+            var texts: [String] = []
+            items.forEach { item in
+                texts.append(item.text)
+            }
+            UIPasteboard.general.string = texts.joined(separator: "\n")
+        }
     }
     
-    private func shareItems(item: Clipboards) {
+    private func copyItems(items: Set<NSManagedObjectID>) {
+        withAnimation {
+            var texts: [String] = []
+            items.forEach { objectID in
+                let item: Clipboards = viewContext.object(with: objectID) as! Clipboards
+                texts.append(item.text)
+            }
+            UIPasteboard.general.string = texts.joined(separator: "\n")
+        }
+    }
+    
+    private func topItems(items: [Clipboards]) {
+        withAnimation {
+            items.forEach { item in
+                item.top = !item.top
+            }
+            viewContextSave()
+        }
+    }
+    
+    private func topItems(items: Set<NSManagedObjectID>) {
+        items.forEach { objectID in
+            let item: Clipboards = viewContext.object(with: objectID) as! Clipboards
+            item.top = true
+        }
+        viewContextSave()
+    }
+    
+    private func shareItems(items: [Clipboards]) {
         sharePresented = true
-        activityItems = [item.text]
+        var texts: [String] = []
+        items.forEach { item in
+            texts.append(item.text)
+        }
+        activityItems = texts
+    }
+    
+    private func shareItems(items: Set<NSManagedObjectID>) {
+        sharePresented = true
+        var texts: [String] = []
+        items.forEach { objectID in
+            let item: Clipboards = viewContext.object(with: objectID) as! Clipboards
+            texts.append(item.text)
+        }
+        activityItems = texts
     }
 }
 
