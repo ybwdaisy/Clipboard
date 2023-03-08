@@ -23,6 +23,21 @@ struct ContentView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Clipboards.objectID, ascending: true)],
         animation: .default)
     private var items: FetchedResults<Clipboards>
+    
+    var searchQuery: Binding<String> {
+        Binding {
+            searchText
+        } set: { newValue in
+            searchText = newValue
+            
+            guard !newValue.isEmpty else {
+                items.nsPredicate = nil
+                return
+            }
+            
+            items.nsPredicate = NSPredicate(format: "text contains[cd] %@", newValue)
+        }
+    }
 
     var body: some View {
         NavigationView {
@@ -92,7 +107,7 @@ struct ContentView: View {
             .sheet(isPresented: $sharePresented, onDismiss: nil) {
                 ActivityViewController(activityItems: $activityItems)
             }
-            .searchable(text: $searchText, prompt: "Search Clipboard")
+            .searchable(text: searchQuery, prompt: "Search Clipboard")
         }
         Group {
             if selection.count > 0 {
