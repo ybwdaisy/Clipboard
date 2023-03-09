@@ -25,8 +25,11 @@ class KeyboardViewController: UIInputViewController {
         let fetchRequest: NSFetchRequest = Clipboards.fetchRequest()
         guard let clipboards = try? viewContext.fetch(fetchRequest) as? [Clipboards] else { return }
         
+        // sort by updateTime and top 
+        let sortedClipboards = clipboards.sorted { $0.updateTime > $1.updateTime }.sorted { $0.top && !$1.top }
+        
         // Perform custom UI setup here
-        self.keyboardView(clipboards: clipboards);
+        self.keyboardView(clipboards: sortedClipboards);
     }
     
     override func viewWillLayoutSubviews() {
