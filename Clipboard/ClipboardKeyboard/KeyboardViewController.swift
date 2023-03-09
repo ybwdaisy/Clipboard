@@ -98,7 +98,7 @@ class KeyboardViewController: UIInputViewController {
         
         // space button
         let spaceButton = UIButton()
-        spaceButton.setTitle("space", for: .normal)
+        spaceButton.setTitle(NSLocalizedString("space", comment: ""), for: .normal)
         spaceButton.setTitleColor(.black, for: .normal)
         spaceButton.backgroundColor = .white
         spaceButton.layer.cornerRadius = 5.0
@@ -125,7 +125,7 @@ class KeyboardViewController: UIInputViewController {
         
         // done button
         let doneButton = UIButton()
-        doneButton.setTitle("Done", for: .normal)
+        doneButton.setTitle(NSLocalizedString("Done", comment: ""), for: .normal)
         doneButton.setTitleColor(.white, for: .normal)
         doneButton.backgroundColor = .systemBlue
         doneButton.layer.cornerRadius = 5.0

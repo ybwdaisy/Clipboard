@@ -1,0 +1,17 @@
+/* 
+  Localizable.strings
+  Clipboard
+
+  Created by ybw-macbook-pro on 2023/3/9.
+  
+*/
+
+"Clipboard History" = "クリップボード履";
+"Search Clipboard" = "クリップボードを検索";
+"Copy" = "コピー";
+"Top" = "ねばっこい";
+"UnTop" = "キャンセルトップ";
+"Share" = "シェア";
+"Delete" = "削除";
+"space" = "スペース";
+"Done" = "終了";

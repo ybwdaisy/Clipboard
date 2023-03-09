@@ -1,0 +1,17 @@
+/* 
+  Localizable.strings
+  Clipboard
+
+  Created by ybw-macbook-pro on 2023/3/9.
+  
+*/
+
+"Clipboard History" = "剪贴板历史";
+"Search Clipboard" = "搜索剪贴板";
+"Copy" = "复制";
+"Top" = "置顶";
+"UnTop" = "取消置顶";
+"Share" = "分享";
+"Delete" = "删除";
+"space" = "空格";
+"Done" = "完成";

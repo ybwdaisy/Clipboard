@@ -1,0 +1,17 @@
+/* 
+  Localizable.strings
+  Clipboard
+
+  Created by ybw-macbook-pro on 2023/3/9.
+  
+*/
+
+"Clipboard History" = "Clipboard History";
+"Search Clipboard" = "Search Clipboard";
+"Copy" = "Copy";
+"Top" = "Top";
+"UnTop" = "UnTop";
+"Share" = "Share";
+"Delete" = "Delete";
+"space" = "space";
+"Done" = "Done";
