@@ -114,7 +114,7 @@ class KeyboardViewController: UIInputViewController {
         
         // add tap and long press event
         deleteButton.addTarget(self, action: #selector(onDeleteText), for: .touchUpInside)
-        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(onLongPressDeleteKey))
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(onLongPressDelete))
         longPressRecognizer.minimumPressDuration = 0.5
         longPressRecognizer.numberOfTouchesRequired = 1
         longPressRecognizer.allowableMovement = 0.1
@@ -194,9 +194,11 @@ class KeyboardViewController: UIInputViewController {
         UISelectionFeedbackGenerator().selectionChanged()
     }
     
-    @objc func onLongPressDeleteKey(longGesture: UILongPressGestureRecognizer) {
-        self.textDocumentProxy.deleteBackward()
-        UISelectionFeedbackGenerator().selectionChanged()
+    @objc func onLongPressDelete(longGesture: UILongPressGestureRecognizer) {
+        while self.textDocumentProxy.hasText {
+            self.textDocumentProxy.deleteBackward()
+            UISelectionFeedbackGenerator().selectionChanged()
+        }
     }
     
     @objc func onInsertSpace() {
