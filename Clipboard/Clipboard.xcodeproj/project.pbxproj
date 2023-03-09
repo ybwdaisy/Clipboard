@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		B507CE4429A74C0500B8AFDD /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B507CE4329A74C0500B8AFDD /* ActivityViewController.swift */; };
+		B50EAC8D29B89F03007E0387 /* PersistentHistoryObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50EAC8C29B89F03007E0387 /* PersistentHistoryObserver.swift */; };
+		B50EAC8E29B89F08007E0387 /* PersistentHistoryObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50EAC8C29B89F03007E0387 /* PersistentHistoryObserver.swift */; };
+		B50EAC8F29B89F09007E0387 /* PersistentHistoryObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50EAC8C29B89F03007E0387 /* PersistentHistoryObserver.swift */; };
 		B518F84229A36CF8006078E6 /* ClipboardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B518F84129A36CF8006078E6 /* ClipboardApp.swift */; };
 		B518F84429A36CF8006078E6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B518F84329A36CF8006078E6 /* ContentView.swift */; };
 		B518F84629A36CFA006078E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B518F84529A36CFA006078E6 /* Assets.xcassets */; };
@@ -63,6 +66,7 @@
 /* Begin PBXFileReference section */
 		B507CE4029A5CA0000B8AFDD /* ShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtension.entitlements; sourceTree = "<group>"; };
 		B507CE4329A74C0500B8AFDD /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
+		B50EAC8C29B89F03007E0387 /* PersistentHistoryObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentHistoryObserver.swift; sourceTree = "<group>"; };
 		B518F83E29A36CF8006078E6 /* Clipboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Clipboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B518F84129A36CF8006078E6 /* ClipboardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardApp.swift; sourceTree = "<group>"; };
 		B518F84329A36CF8006078E6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -136,6 +140,7 @@
 				B518F85529A37876006078E6 /* Clipboards.swift */,
 				B518F84A29A36CFA006078E6 /* Persistence.swift */,
 				B507CE4329A74C0500B8AFDD /* ActivityViewController.swift */,
+				B50EAC8C29B89F03007E0387 /* PersistentHistoryObserver.swift */,
 				B518F84529A36CFA006078E6 /* Assets.xcassets */,
 				B518F84F29A36CFA006078E6 /* Info.plist */,
 				B518F84C29A36CFA006078E6 /* Clipboard.xcdatamodeld */,
@@ -167,8 +172,8 @@
 		B5905DC729A76041009A17A5 /* ClipboardKeyboard */ = {
 			isa = PBXGroup;
 			children = (
-				B5905DD129A760E5009A17A5 /* ClipboardKeyboard.entitlements */,
 				B5905DC829A76041009A17A5 /* KeyboardViewController.swift */,
+				B5905DD129A760E5009A17A5 /* ClipboardKeyboard.entitlements */,
 				B5905DCA29A76041009A17A5 /* Info.plist */,
 			);
 			path = ClipboardKeyboard;
@@ -308,6 +313,7 @@
 				B507CE4429A74C0500B8AFDD /* ActivityViewController.swift in Sources */,
 				B518F84B29A36CFA006078E6 /* Persistence.swift in Sources */,
 				B518F84429A36CF8006078E6 /* ContentView.swift in Sources */,
+				B50EAC8D29B89F03007E0387 /* PersistentHistoryObserver.swift in Sources */,
 				B518F84E29A36CFA006078E6 /* Clipboard.xcdatamodeld in Sources */,
 				B518F84229A36CF8006078E6 /* ClipboardApp.swift in Sources */,
 			);
@@ -321,6 +327,7 @@
 				B5A5858629B0469F00E37E34 /* Clipboard.xcdatamodeld in Sources */,
 				B518F88929A49952006078E6 /* ShareViewController.swift in Sources */,
 				B5A5858429B0469600E37E34 /* Clipboards.swift in Sources */,
+				B50EAC8E29B89F08007E0387 /* PersistentHistoryObserver.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,6 +339,7 @@
 				B5A5857C29B03FDA00E37E34 /* Clipboards.swift in Sources */,
 				B5A5857E29B03FE100E37E34 /* Clipboard.xcdatamodeld in Sources */,
 				B5905DC929A76041009A17A5 /* KeyboardViewController.swift in Sources */,
+				B50EAC8F29B89F09007E0387 /* PersistentHistoryObserver.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

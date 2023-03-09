@@ -20,9 +20,10 @@ class KeyboardViewController: UIInputViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let controller = PersistenceController(inMemory: true)
+        let container = PersistenceController(inMemory: true).container
+        let viewContext = container.viewContext
         let fetchRequest: NSFetchRequest = Clipboards.fetchRequest()
-        guard let clipboards = try? controller.container.viewContext.fetch(fetchRequest) as? [Clipboards] else { return }
+        guard let clipboards = try? viewContext.fetch(fetchRequest) as? [Clipboards] else { return }
         
         // Perform custom UI setup here
         self.keyboardView(clipboards: clipboards);

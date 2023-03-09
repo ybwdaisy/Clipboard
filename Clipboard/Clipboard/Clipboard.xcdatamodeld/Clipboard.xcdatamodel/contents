@@ -3,5 +3,6 @@
     <entity name="Clipboards" representedClassName=".Clipboards" syncable="YES">
         <attribute name="text" optional="YES" attributeType="String"/>
         <attribute name="top" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="updateTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
 </model>

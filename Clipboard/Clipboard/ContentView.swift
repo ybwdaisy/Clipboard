@@ -20,9 +20,27 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Clipboards.objectID, ascending: true)],
+        sortDescriptors: [
+            NSSortDescriptor(keyPath: \Clipboards.top, ascending: false),
+            NSSortDescriptor(keyPath: \Clipboards.updateTime, ascending: false)
+        ],
         animation: .default)
     private var items: FetchedResults<Clipboards>
+    
+    var searchQuery: Binding<String> {
+        Binding {
+            searchText
+        } set: { newValue in
+            searchText = newValue
+            
+            guard !newValue.isEmpty else {
+                items.nsPredicate = nil
+                return
+            }
+            
+            items.nsPredicate = NSPredicate(format: "text contains[cd] %@", newValue)
+        }
+    }
 
     var body: some View {
         NavigationView {
@@ -87,12 +105,19 @@ struct ContentView: View {
                         addItem(text: clipboardString!)
                         UIPasteboard.general.string = nil
                     }
+                    // from share extension
+                    let userDefaults = UserDefaults.init(suiteName: "group.ybwdaisy.clipboard")
+                    let shareContent = userDefaults?.object(forKey: "share_extension_content")
+                    if (shareContent != nil) {
+                        addItem(text: shareContent as! String)
+                        userDefaults?.set(nil, forKey: "share_extension_content")
+                    }
                 }
             })
             .sheet(isPresented: $sharePresented, onDismiss: nil) {
                 ActivityViewController(activityItems: $activityItems)
             }
-            .searchable(text: $searchText, prompt: "Search Clipboard")
+            .searchable(text: searchQuery, prompt: "Search Clipboard")
         }
         Group {
             if selection.count > 0 {
@@ -137,10 +162,12 @@ struct ContentView: View {
             }
         }
     }
-    
+
     private func viewContextSave() {
         do {
-            try viewContext.save()
+            if viewContext.hasChanges {
+                try viewContext.save()
+            }
         } catch {
             let nsError = error as NSError
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
@@ -151,6 +178,7 @@ struct ContentView: View {
         withAnimation {
             let newItem = Clipboards(context: viewContext)
             newItem.text = text
+            newItem.updateTime = Date()
             viewContext.insert(newItem)
             viewContextSave()
         }
@@ -200,6 +228,7 @@ struct ContentView: View {
         withAnimation {
             items.forEach { item in
                 item.top = !item.top
+                item.updateTime = Date()
             }
             viewContextSave()
         }
@@ -209,6 +238,7 @@ struct ContentView: View {
         items.forEach { objectID in
             let item: Clipboards = viewContext.object(with: objectID) as! Clipboards
             item.top = true
+            item.updateTime = Date()
         }
         viewContextSave()
     }
@@ -235,6 +265,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environment(\.managedObjectContext, PersistenceController(inMemory: true).container.viewContext)
+        ContentView()
     }
 }
