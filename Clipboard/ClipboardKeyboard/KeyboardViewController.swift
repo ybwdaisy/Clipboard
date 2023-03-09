@@ -25,7 +25,7 @@ class KeyboardViewController: UIInputViewController {
         let fetchRequest: NSFetchRequest = Clipboards.fetchRequest()
         guard let clipboards = try? viewContext.fetch(fetchRequest) as? [Clipboards] else { return }
         
-        // sort by updateTime and top 
+        // sort by updateTime and top
         let sortedClipboards = clipboards.sorted { $0.updateTime > $1.updateTime }.sorted { $0.top && !$1.top }
         
         // Perform custom UI setup here
@@ -44,7 +44,14 @@ class KeyboardViewController: UIInputViewController {
         // The app has just changed the document's contents, the document context has been updated.
     }
     
-    func keyboardView(clipboards: [Clipboards]) {
+    private func keyboardView(clipboards: [Clipboards]) {
+        let stackView = keyboardStackView()
+        let scrollView = keyboardScrollView(stackView: stackView)
+        keyboardAccessoryView(stackView: stackView)
+        keyboardClipboardsView(scrollView: scrollView, clipboards: clipboards)
+    }
+    
+    private func keyboardStackView() -> UIStackView {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 10.0
@@ -60,6 +67,10 @@ class KeyboardViewController: UIInputViewController {
         stackView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
         stackView.heightAnchor.constraint(equalToConstant: 225).isActive = true
         
+        return stackView
+    }
+    
+    private func keyboardScrollView(stackView: UIStackView) -> UIScrollView {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.backgroundColor = .clear
@@ -71,6 +82,10 @@ class KeyboardViewController: UIInputViewController {
         scrollView.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: -50).isActive = true
         scrollView.leftAnchor.constraint(equalTo: stackView.leftAnchor, constant: 0).isActive = true
         
+        return scrollView
+    }
+    
+    private func keyboardAccessoryView(stackView: UIStackView) {
         let accessoryView = UIStackView()
         accessoryView.axis = .horizontal
         accessoryView.spacing = 5.0
@@ -81,6 +96,7 @@ class KeyboardViewController: UIInputViewController {
         accessoryView.leftAnchor.constraint(equalTo: stackView.leftAnchor, constant: 10).isActive = true
         accessoryView.rightAnchor.constraint(equalTo: stackView.rightAnchor, constant: -10).isActive = true
         
+        // space button
         let spaceButton = UIButton()
         spaceButton.setTitle("space", for: .normal)
         spaceButton.setTitleColor(.black, for: .normal)
@@ -89,15 +105,15 @@ class KeyboardViewController: UIInputViewController {
         spaceButton.addTarget(self, action: #selector(onInsertSpace), for: .touchUpInside)
         accessoryView.addArrangedSubview(spaceButton)
         
+        // delete button
         let deleteButton = UIButton()
         deleteButton.setImage(UIImage(systemName: "delete.left"), for: .normal)
         deleteButton.tintColor = .black
         deleteButton.backgroundColor = .white
         deleteButton.layer.cornerRadius = 5.0
         
+        // add tap and long press event
         deleteButton.addTarget(self, action: #selector(onDeleteText), for: .touchUpInside)
-        
-        // TODO: batch delete is not smooth
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(onLongPressDeleteKey))
         longPressRecognizer.minimumPressDuration = 0.5
         longPressRecognizer.numberOfTouchesRequired = 1
@@ -105,9 +121,9 @@ class KeyboardViewController: UIInputViewController {
         deleteButton.addGestureRecognizer(longPressRecognizer)
 
         accessoryView.addArrangedSubview(deleteButton)
-        
         deleteButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
         
+        // done button
         let doneButton = UIButton()
         doneButton.setTitle("Done", for: .normal)
         doneButton.setTitleColor(.white, for: .normal)
@@ -115,16 +131,20 @@ class KeyboardViewController: UIInputViewController {
         doneButton.layer.cornerRadius = 5.0
         
         doneButton.addTarget(self, action: #selector(onReturn), for: .touchUpInside)
-        
         accessoryView.addArrangedSubview(doneButton)
-        
         doneButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        
+    }
+    
+    func keyboardClipboardsView(scrollView: UIScrollView, clipboards: [Clipboards]) {
         var topView: UIView? = nil
-        for (index, item) in clipboards.enumerated() {
+        for item in clipboards {
             let contentView = UIView()
             contentView.translatesAutoresizingMaskIntoConstraints = false
             contentView.backgroundColor = .white
+            if item.top {
+                contentView.layer.borderWidth = 1
+                contentView.layer.borderColor = UIColor.systemBlue.cgColor
+            }
             contentView.layer.cornerRadius = 10
             contentView.layoutIfNeeded()
             
