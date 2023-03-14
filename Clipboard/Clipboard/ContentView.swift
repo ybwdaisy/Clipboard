@@ -44,53 +44,59 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            List(items, id: \.objectID, selection: $selection) { item in
-                Text(item.text)
-                    .listRowBackground(item.top ? Color.gray.opacity(0.3) : nil)
-                    .swipeActions(edge: .leading) {
-                        Button {
-                            copyItems(items: [item])
-                        } label: {
-                            Image(systemName: "doc.on.doc")
+            List(selection: $selection) {
+                ForEach(items, id: \.objectID) { item in
+                    Text(item.text)
+                        .listRowBackground(item.top ? Color.gray.opacity(0.3) : nil)
+                        .swipeActions(edge: .leading) {
+                            Button {
+                                copyItems(items: [item])
+                            } label: {
+                                Image(systemName: "doc.on.doc")
+                            }
+                            .tint(.blue)
+                            Button {
+                                topItems(items: [item])
+                            } label: {
+                                Image(systemName: item.top ? "pin.slash" : "pin")
+                            }
+                            .tint(.green)
                         }
-                        .tint(.blue)
-                        Button {
-                            topItems(items: [item])
-                        } label: {
-                            Image(systemName: item.top ? "pin.slash" : "pin")
+                        .swipeActions(edge: .trailing) {
+                            Button {
+                                deleteItems(items: [item])
+                            } label: {
+                                Image(systemName: "trash")
+                            }
+                            .tint(.red)
                         }
-                        .tint(.green)
-                    }
-                    .swipeActions(edge: .trailing) {
-                        Button {
-                            deleteItems(items: [item])
-                        } label: {
-                            Image(systemName: "trash")
+                        .contextMenu {
+                            Button {
+                                copyItems(items: [item])
+                            } label: {
+                                Label("Copy", systemImage: "doc.on.doc")
+                            }
+                            Button {
+                                topItems(items: [item])
+                            } label: {
+                                Label(item.top ? "UnTop": "Top", systemImage: item.top ? "pin.slash" : "pin")
+                            }
+                            Button {
+                                shareItems(items: [item])
+                            } label: {
+                                Label("Share", systemImage: "square.and.arrow.up")
+                            }
+                            Button(role: .destructive) {
+                                deleteItems(items: [item])
+                            } label: {
+                                Label("Delete", systemImage: "trash")
+                            }
                         }
-                        .tint(.red)
-                    }
-                    .contextMenu {
-                        Button {
-                            copyItems(items: [item])
-                        } label: {
-                            Label("Copy", systemImage: "doc.on.doc")
+                        .onDrag {
+                            NSItemProvider(object: item.text as NSString)
                         }
-                        Button {
-                            topItems(items: [item])
-                        } label: {
-                            Label(item.top ? "UnTop": "Top", systemImage: item.top ? "pin.slash" : "pin")
-                        }
-                        Button {
-                            shareItems(items: [item])
-                        } label: {
-                            Label("Share", systemImage: "square.and.arrow.up")
-                        }
-                        Button(role: .destructive) {
-                            deleteItems(items: [item])
-                        } label: {
-                            Label("Delete", systemImage: "trash")
-                        }
-                    }
+                }
+                .onMove(perform: moveItems)
             }
             .toolbar {
                 EditButton()
@@ -260,6 +266,16 @@ struct ContentView: View {
             texts.append(item.text)
         }
         activityItems = texts
+    }
+    
+    private func moveItems(from source: IndexSet, to destination: Int) {
+        var reservedItems: [Clipboards] = items.map{ $0 }
+
+        reservedItems.move(fromOffsets: source, toOffset: destination)
+        
+        for reservedIndex in stride(from: reservedItems.count - 1, through: 0, by: -1) {
+            reservedItems[reservedIndex].updateTime = Date()
+        }
     }
 }
 
